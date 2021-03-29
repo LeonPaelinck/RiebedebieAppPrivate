@@ -10,6 +10,6 @@ import { MaterialModule } from '../material/material.module';
     MaterialModule
   ],
   declarations: [KindListComponent, KindComponent],
-  exports: [KindListComponent, KindComponent],
+  exports: [KindListComponent],
 })
 export class KindModule { }

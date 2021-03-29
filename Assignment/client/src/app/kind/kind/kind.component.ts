@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Kind } from '../kind.model';
 
 @Component({
   selector: 'app-kind',
@@ -6,7 +7,7 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./kind.component.css']
 })
 export class KindComponent implements OnInit {
-  @Input() naam : string = '' ;
+  @Input() public kind : Kind;
   
   constructor() {}
 

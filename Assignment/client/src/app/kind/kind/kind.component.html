@@ -1,8 +1,8 @@
 <mat-card>
     <mat-card-header>
-        <p>Dit kind heet {{naam}}</p>
+        <p>Dit kind heet {{ kind.firstName }} {{ kind.lastName }}</p>
     </mat-card-header>
     <mat-card-content>
-      Beschrijving van dit kind
+      <p>Geboren in {{ kind.birthDate }}</p>
     </mat-card-content>
   </mat-card> 
