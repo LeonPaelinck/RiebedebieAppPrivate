@@ -1,6 +1,7 @@
 <h1>Lijst van kinderen: </h1>
 <mat-list 
 class="kind"
-*ngFor="let kind of kinderen">
+*ngFor="let kind uw kinderen">
     <app-kind [kind]="kind"></app-kind>
 </mat-list>
+<app-add-kind (newKind)="addKind($event)"></app-add-kind>>
