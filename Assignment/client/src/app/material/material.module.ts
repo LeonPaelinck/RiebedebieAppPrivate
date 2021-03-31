@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatGridListModule } from '@angular/material/grid-list';
 import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatListModule} from '@angular/material/list';
+
 
 
 @NgModule({
@@ -11,12 +13,14 @@ import {MatFormFieldModule} from '@angular/material/form-field';
     CommonModule,
     MatCardModule,
     MatGridListModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    MatListModule
   ],
   exports: [
     MatCardModule,
     MatGridListModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    MatListModule
   ]
 })
 export class MaterialModule { }

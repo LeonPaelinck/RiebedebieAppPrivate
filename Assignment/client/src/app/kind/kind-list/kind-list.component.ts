@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { KindDataService } from '../kind-data.service';
 import { Kind } from '../kind.model';
-import { KINDEREN } from '../mock-kind';
 
 @Component({
   selector: 'app-kind-list',
@@ -8,19 +8,18 @@ import { KINDEREN } from '../mock-kind';
   styleUrls: ['./kind-list.component.css']
 })
 export class KindListComponent implements OnInit {
-  private _kinderen = KINDEREN;
 
-  constructor() { }
+  constructor(private _kindDataService : KindDataService) { }
 
   ngOnInit(): void {
   }
 
-  public get kinderen() {
-    return this._kinderen;
+  get kinderen() {
+    return this._kindDataService.kinderen;
   }
 
   public addKind(kind: Kind) {
-    this._kinderen.push(kind);
+    this._kindDataService.addKind(kind);
     console.log(kind.firstName)
   }
 
