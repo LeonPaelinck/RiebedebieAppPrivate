@@ -12,8 +12,7 @@ export class AddKindComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit(): void {
-  }
+  ngOnInit() {}
 
   addKind(lastname: HTMLInputElement, firstname: HTMLInputElement, birthdate: HTMLInputElement): boolean {
     console.log(firstname.value + birthdate.value);

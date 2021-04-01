@@ -4,6 +4,9 @@
     class="kindlistitem"
     *ngFor="let kind of kinderen">
         <app-kind [kind]="kind"></app-kind>
-</div>
+    </div>
 </mat-list>
-<app-add-kind (newKind)="addKind($event)"></app-add-kind>
+<div>
+    <app-add-kind (newKind)="addKind($event)"></app-add-kind>
+</div>
+

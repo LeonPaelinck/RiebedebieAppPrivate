@@ -1,6 +1,8 @@
 <mat-card class="kind">
     <mat-card-header>
-      <mat-card-title>{{ kind.firstName }} {{ kind.lastName }}</mat-card-title>
+      <mat-card-title>
+        <p>{{ kind.firstName }} {{ kind.lastName }}</p>
+      </mat-card-title>
     </mat-card-header>
     <mat-card-content>
       <p>Geboren in {{ kind.birthDate | date: 'dd/MM/yyyy'}}</p>
