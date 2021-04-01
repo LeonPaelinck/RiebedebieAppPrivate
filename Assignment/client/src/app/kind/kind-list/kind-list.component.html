@@ -1,12 +1,17 @@
 <h1>Lijst van kinderen: </h1> 
-<mat-list role="list">
-    <div role="listitem"
-    class="kindlistitem"
-    *ngFor="let kind of kinderen">
-        <app-kind [kind]="kind"></app-kind>
+<div style="margin: 0 2rem;">
+
+    <mat-grid-list cols="5" rowHeight='100px' >
+        <mat-grid-tile
+        class="kindlistitem"
+        *ngFor="let kind of kinderen">
+            <app-kind [kind]="kind"></app-kind>
+        </mat-grid-tile>
+    </mat-grid-list>
+
+    <div>
+        <app-add-kind (newKind)="addKind($event)"></app-add-kind>
     </div>
-</mat-list>
-<div>
-    <app-add-kind (newKind)="addKind($event)"></app-add-kind>
 </div>
+
 
