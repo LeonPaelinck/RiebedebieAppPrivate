@@ -2,9 +2,9 @@ import { Kind } from './kind.model';
 
 const JsonKinderen = [
   {
-    lastName: 'Paelinck',
-    firstName: 'Leon',
-    birthDate: '2000-12-04'
+    lastName: 'Van Campe',
+    firstName: 'Chiara',
+    birthDate: '1999-06-14'
   },
   {
     lastName: 'Goethals',
