@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Kind } from '../kind.model';
 
 @Component({
@@ -9,9 +9,17 @@ import { Kind } from '../kind.model';
 export class KindComponent implements OnInit {
   @Input() public kind : Kind;
   
+  @Output()
+  delete = new EventEmitter<Kind>();
+
   constructor() {}
 
   ngOnInit(): void {
+  }
+
+  handleDelete(): void {
+    this.delete.emit(this.kind);
+    //console.log(this.kind.firstName);
   }
 
 }

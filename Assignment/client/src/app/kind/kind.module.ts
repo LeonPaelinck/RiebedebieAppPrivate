@@ -10,7 +10,14 @@ import { AddKindComponent } from './add-kind/add-kind.component';
     CommonModule,
     MaterialModule
   ],
-  declarations: [KindListComponent, KindComponent, AddKindComponent],
-  exports: [KindListComponent, AddKindComponent],
+  declarations: [
+    KindListComponent, 
+    KindComponent, 
+    AddKindComponent
+  ],
+  exports: [
+    KindListComponent, 
+    AddKindComponent
+  ],
 })
 export class KindModule { }

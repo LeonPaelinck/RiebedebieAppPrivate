@@ -19,4 +19,12 @@ export class KindDataService {
     this._kinderen = [...this._kinderen, kind];
     console.log(this._kinderen);
   }
+
+  deleteKind(kind: Kind) {
+    const index = this._kinderen.indexOf(kind, 0);
+    if (index > -1) {
+       this._kinderen.splice(index, 1);
+    }   console.log(kind);
+   console.log(this._kinderen);
+  }
 }

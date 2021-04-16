@@ -20,7 +20,11 @@ export class KindListComponent implements OnInit {
 
   public addKind(kind: Kind) {
     this._kindDataService.addKind(kind);
-    console.log(kind.firstName)
+    //console.log(kind.firstName)
+  }
+
+  public deleteKind(kind: Kind): void {
+    this._kindDataService.deleteKind(kind);
   }
 
 }

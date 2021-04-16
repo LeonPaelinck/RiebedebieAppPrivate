@@ -1,11 +1,11 @@
 <h1>Lijst van kinderen: </h1> 
 <div style="margin: 0 2rem;">
 
-    <mat-grid-list cols="5" rowHeight="200px" class="kindlist" >
+    <mat-grid-list cols="5" rowHeight="200px" class="kindlist">
         <mat-grid-tile
         class="kindlistitem"
         *ngFor="let kind of kinderen">
-            <app-kind [kind]="kind"></app-kind>
+            <app-kind [kind]="kind" (delete)="deleteKind($event)"></app-kind>
         </mat-grid-tile>
     </mat-grid-list>
 
