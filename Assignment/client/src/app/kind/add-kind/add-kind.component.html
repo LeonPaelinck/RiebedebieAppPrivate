@@ -1,9 +1,14 @@
+<form [formGroup]="kind">
     <p><mat-form-field>
       <input matInput placeholder="voornaam" type="text" 
+            aria-label="voornaam"
+            formControlName="firstName"
           #newkidfirstname />
     </mat-form-field></p>
     <p><mat-form-field>
           <input matInput placeholder="familienaam" type="text" 
+          aria-label="familienaam"
+          formControlName="lastName"
           #newkidlastname />
     </mat-form-field></p>
     <p><mat-form-field>
@@ -15,4 +20,5 @@
             registreer kind
           </button>
       </mat-card-actions>
-
+</form>
+ADD {{ kind.value | json }}

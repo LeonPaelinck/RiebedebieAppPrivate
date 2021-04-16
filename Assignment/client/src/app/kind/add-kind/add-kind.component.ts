@@ -1,4 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 import { Kind } from '../kind.model';
 
 @Component({
@@ -7,12 +8,18 @@ import { Kind } from '../kind.model';
   styleUrls: ['./add-kind.component.css']
 })
 export class AddKindComponent implements OnInit {
+  public kind: FormGroup;
 
   @Output() public newKind = new EventEmitter<Kind>();
 
   constructor() { }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.kind = new FormGroup({
+      firstName: new FormControl('JP'),
+      lastName: new FormControl('Van Lierde')
+    })
+  }
 
   addKind(lastname: HTMLInputElement, firstname: HTMLInputElement, birthdate: HTMLInputElement): boolean {
     console.log(firstname.value + birthdate.value);
