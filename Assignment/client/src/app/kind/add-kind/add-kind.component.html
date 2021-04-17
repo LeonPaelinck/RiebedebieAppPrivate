@@ -1,24 +1,43 @@
-<form [formGroup]="kind">
+<form [formGroup]="kind" (ngSubmit)='onSubmit()'>
     <p><mat-form-field>
       <input matInput placeholder="voornaam" type="text" 
             aria-label="voornaam"
             formControlName="firstName"
-          #newkidfirstname />
+            required
+            #spy
+            />
+      <mat-error *ngIf="kind.get('firstName')['errors'] && 
+            kind.get('firstName').touched">
+            {{ getErrorMessage(kind.get('firstName')['errors']) }}
+      </mat-error>
     </mat-form-field></p>
     <p><mat-form-field>
           <input matInput placeholder="familienaam" type="text" 
           aria-label="familienaam"
           formControlName="lastName"
-          #newkidlastname />
+          required
+          #spy/>
+          <mat-error *ngIf="kind.get('lastName')['errors'] && 
+          kind.get('lastName').touched">
+                  {{ getErrorMessage(kind.get('lastName')['errors']) }}
+            </mat-error>
     </mat-form-field></p>
     <p><mat-form-field>
           <input matInput placeholder="geboortedatum" type="date" 
-          #newkidbirthdate/>
+          aria-label="geboortedatum"
+          formControlName="birthDate"
+          required
+          #spy/>
+          <mat-error *ngIf="kind.get('birthDate')['errors'] && 
+          kind.get('birthDate').touched">
+          {{ getErrorMessage(kind.get('birthDate')['errors']) }}
+    </mat-error>
     </mat-form-field></p>
     <mat-card-actions>
-        <button (click)="addKind(newkidlastname, newkidfirstname, newkidbirthdate)" mat-raised-button>
+        <button type='submit'mat-raised-button  [disabled]='!kind.valid'>
             registreer kind
           </button>
       </mat-card-actions>
 </form>
 ADD {{ kind.value | json }}
+{{ spy.className }}
