@@ -1,6 +1,24 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Kind } from '../kind.model';
+
+function validateKind(control: FormGroup)
+  : { [key: string]: any } {
+    /* if (control.get('firstName').value == null || control.get('lastName').value == null)
+       {
+        return { required: true}
+      }
+    else */ if (
+      new Date(control.get('birthDate').value) >= new Date()
+    ) {
+      return { dateInFuture: true };
+    } else if (
+      new Date().getFullYear() - new Date(control.get('birthDate').value).getFullYear() >= 16
+    ) {
+      return { adult: true };
+    }
+  return null;
+}
 
 @Component({
   selector: 'app-add-kind',
@@ -13,17 +31,16 @@ export class AddKindComponent implements OnInit {
 
   @Output() public newKind = new EventEmitter<Kind>();
 
-  constructor() { }
+  constructor(private fb: FormBuilder) { }
 
   ngOnInit() {
-    this.kind = new FormGroup({
-      firstName: new FormControl('JP',
-      [Validators.required]),
-      lastName: new FormControl('Van Lierde',
-      [Validators.required]),
-      birthDate: new FormControl('2010-10-04',
-      [Validators.required])
-    })
+    this.kind = this.fb.group({
+      firstName: ['Chiara', [Validators.required]],
+      lastName: ['Van Campe', [Validators.required]],
+      birthDate: ['2010-10-04', [Validators.required]]
+    },
+    { validator: validateKind }
+    );
   }
 
   onSubmit() {
@@ -34,8 +51,15 @@ export class AddKindComponent implements OnInit {
   }
 
   getErrorMessage(errors: any): string {
-    if (errors.required) {
+    if (!errors) {
+      return null;
+    }
+    if (errors.required != null && errors.required) {
       return 'is verplicht';
+    } else if (errors.dateInFuture) {
+      return 'geboortedatum kan niet in toekomst liggen';
+    } else if (errors.adult) {
+      return 'dit kind is te oud'
     }
   }
 }
