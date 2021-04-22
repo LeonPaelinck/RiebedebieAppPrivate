@@ -6,11 +6,15 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using RiebedebieApi.Data;
+using RiebedebieApi.Data.Repositories;
+using RiebedebieApi.Models;
 
 namespace Api
 {
@@ -28,14 +32,21 @@ namespace Api
         {
 
             services.AddControllers();
+
+            services.AddDbContext<RiebedebieContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("RiebedebieContext")));
+
+            services.AddScoped<RiebedebieDataInitializer>();
+            services.AddScoped<IKindRepository, KindRepository>();
+
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Api", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Riebedebie API", Version = "v1" });
             });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, RiebedebieDataInitializer riebedebieDataInitializer)
         {
             if (env.IsDevelopment())
             {
@@ -54,6 +65,9 @@ namespace Api
             {
                 endpoints.MapControllers();
             });
+
+
+            riebedebieDataInitializer.InitializeData(); //.Wait();
         }
     }
 }
