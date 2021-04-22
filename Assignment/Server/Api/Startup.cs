@@ -56,6 +56,11 @@ namespace Api
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
                 c.IncludeXmlComments(xmlPath);
             });
+
+            services.AddCors(options =>
+                options.AddPolicy("AllowAllOrigins", builder =>
+                builder.AllowAnyOrigin()));
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -79,6 +84,7 @@ namespace Api
                 endpoints.MapControllers();
             });
 
+            app.UseCors("AllowAllOrigins");
 
             riebedebieDataInitializer.InitializeData();  //.Wait();
         }
