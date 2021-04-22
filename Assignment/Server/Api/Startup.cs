@@ -80,7 +80,7 @@ namespace Api
             });
 
 
-            riebedebieDataInitializer.InitializeData(); //.Wait();
+            riebedebieDataInitializer.InitializeData();  //.Wait();
         }
     }
 }
