@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 namespace RecipeApi.DTOs
 {
-    public class KindDTO
+    public class ChildDTO
     {
         [Required]
         public string LastName { get; set; }

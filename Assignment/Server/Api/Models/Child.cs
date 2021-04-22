@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace RiebedebieApi.Models
 {
-    public class Kind
+    public class Child
     {
         public int Id { get; set; }
         [Required]
@@ -16,12 +16,12 @@ namespace RiebedebieApi.Models
         [Required]
         public DateTime BirthDate { get; set; }
 
-        public Kind()
+        public Child()
         {
 
         }
 
-        public Kind(string lastName, string firstName, DateTime birthDate)
+        public Child(string lastName, string firstName, DateTime birthDate)
         {
             LastName = lastName;
             FirstName = firstName;

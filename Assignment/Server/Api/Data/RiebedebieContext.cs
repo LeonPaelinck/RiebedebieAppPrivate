@@ -12,11 +12,11 @@ public class RiebedebieContext : DbContext
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);
-        builder.Entity<Kind>().Property(k => k.LastName).IsRequired().HasMaxLength(50);
-        builder.Entity<Kind>().Property(k => k.FirstName).IsRequired().HasMaxLength(50);
-        builder.Entity<Kind>().Property(k => k.BirthDate).IsRequired();
+        builder.Entity<Child>().Property(k => k.LastName).IsRequired().HasMaxLength(50);
+        builder.Entity<Child>().Property(k => k.FirstName).IsRequired().HasMaxLength(50);
+        builder.Entity<Child>().Property(k => k.BirthDate).IsRequired();
 
     }
 
-    public DbSet<Kind> Kinderen { get; set; }
+    public DbSet<Child> Children { get; set; }
 }
