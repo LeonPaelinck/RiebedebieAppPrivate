@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 namespace RecipeApi.DTOs
 {
     public class ChildDTO
@@ -8,6 +9,6 @@ namespace RecipeApi.DTOs
         [Required]
         public string FirstName { get; set; }
         [Required]
-        public DataType BirthDate { get; set; }
+        public DateTime BirthDate { get; set; }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using RecipeApi.DTOs;
 using RiebedebieApi.Models;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,6 +8,7 @@ namespace RiebedebieApi.Controllers
 {
     [Route("api/[controller]")]
     [Produces("application/json")]
+    [ApiConventionType(typeof(DefaultApiConventions))]
     [ApiController]
     public class ChildrenController : ControllerBase
     {
@@ -49,12 +51,14 @@ namespace RiebedebieApi.Controllers
         /// <param name="child">The new Child</param>
         /// <returns>The added Child</returns>
         [HttpPost]
-        public ActionResult<Child> PostChild(Child child)
+        public ActionResult<Child> PostChild(ChildDTO child)
         {
-            _childRepository.Add(child);
+            Child childToCreate = new Child() { LastName = child.LastName, FirstName = child.FirstName, BirthDate = child.BirthDate };
+
+            _childRepository.Add(childToCreate);
             _childRepository.SaveChanges();
             return CreatedAtAction(nameof(GetChild),
-                new { id = child.Id }, child); //201
+                new { id = childToCreate.Id }, childToCreate); //201
         }
 
         // PUT: api/Child/1
