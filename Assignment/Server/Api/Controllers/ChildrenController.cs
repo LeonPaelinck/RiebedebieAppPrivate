@@ -6,6 +6,7 @@ using System.Linq;
 namespace RiebedebieApi.Controllers
 {
     [Route("api/[controller]")]
+    [Produces("application/json")]
     [ApiController]
     public class ChildrenController : ControllerBase
     {
@@ -19,7 +20,7 @@ namespace RiebedebieApi.Controllers
         /// <summary>
         /// Get every child ordered by lastname and age
         /// </summary>
-        /// <returns></returns>
+        /// <returns>A list of all Children</returns>
         [HttpGet]
         public IEnumerable<Child> GetChildren()
         {
@@ -27,6 +28,11 @@ namespace RiebedebieApi.Controllers
         }
 
         // GET: api/Child/1
+        /// <summary>
+        /// Get one child by its id
+        /// </summary>
+        /// <param name="id">The unique id</param>
+        /// <returns>One Child</returns>
         [HttpGet("{id}")]
         public ActionResult<Child> GetChild(int id)
         {
@@ -37,6 +43,11 @@ namespace RiebedebieApi.Controllers
         }
 
         // POST: api/Child
+        /// <summary>
+        /// Adds and persists a new Child
+        /// </summary>
+        /// <param name="child">The new Child</param>
+        /// <returns>The added Child</returns>
         [HttpPost]
         public ActionResult<Child> PostChild(Child child)
         {
@@ -47,6 +58,12 @@ namespace RiebedebieApi.Controllers
         }
 
         // PUT: api/Child/1
+        /// <summary>
+        /// Alter an existing child and persist the changes
+        /// </summary>
+        /// <param name="id">The unique id</param>
+        /// <param name="child">The altered Child</param>
+        /// <returns></returns>
         [HttpPut("{id}")]
         public ActionResult PutChild(int id, Child child)
         {
@@ -58,6 +75,11 @@ namespace RiebedebieApi.Controllers
         }
 
         // DELETE: api/Child/1
+        /// <summary>
+        /// Deletes a Child
+        /// </summary>
+        /// <param name="id">The unique id</param>
+        /// <returns></returns>
         [HttpDelete("{id}")]
         public ActionResult DeleteChild(int id)
         {
