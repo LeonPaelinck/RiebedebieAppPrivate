@@ -30,7 +30,7 @@
           #spy/>
           <mat-error *ngIf="kind.get('birthDate')['errors'] && 
           kind.get('birthDate').touched"> 
-          {{ getErrorMessage(kind.errors) }}
+          {{ getErrorMessage(kind.get('birthDate')['errors']) }}
             </mat-error>
     </mat-form-field></p>
     <mat-card-actions>
