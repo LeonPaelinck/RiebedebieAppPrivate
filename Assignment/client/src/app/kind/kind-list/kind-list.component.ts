@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
+import { EMPTY, Observable, Subject } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 import { KindDataService } from '../kind-data.service';
 import { Kind } from '../kind.model';
 
@@ -11,6 +12,7 @@ import { Kind } from '../kind.model';
 export class KindListComponent implements OnInit {
   private _fetchKinderen$: Observable<Kind[]> 
     = this._kindDataService.kinderen$;
+    public errorMessage: string = '';
 
   public filterKindName: string;
   public filterKind$ = new Subject<string>();
@@ -21,6 +23,12 @@ export class KindListComponent implements OnInit {
   }     
 
   ngOnInit(): void {
+    this._fetchKinderen$ = this._kindDataService.kinderen$.pipe(
+      catchError(err => {
+        this.errorMessage = err;
+        return EMPTY;
+      })
+    );
   }
 
   get kinderen$() : Observable<Kind[]> {
