@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable, Subject } from 'rxjs';
 import { KindDataService } from '../kind-data.service';
 import { Kind } from '../kind.model';
 
@@ -8,14 +9,22 @@ import { Kind } from '../kind.model';
   styleUrls: ['./kind-list.component.css']
 })
 export class KindListComponent implements OnInit {
+  private _fetchKinderen$: Observable<Kind[]> 
+    = this._kindDataService.kinderen$;
 
-  constructor(private _kindDataService : KindDataService) { }
+  public filterKindName: string;
+  public filterKind$ = new Subject<string>();
+
+  constructor(private _kindDataService : KindDataService) {
+    this.filterKind$.subscribe(
+      val => this.filterKindName = val);
+  }     
 
   ngOnInit(): void {
   }
 
-  get kinderen() {
-    return this._kindDataService.kinderen;
+  get kinderen() : Observable<Kind[]> {
+    return this._fetchKinderen$;
   }
 
   public addKind(kind: Kind) {

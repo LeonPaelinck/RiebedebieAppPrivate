@@ -5,6 +5,7 @@ import { KindComponent } from './kind/kind.component';
 import { MaterialModule } from '../material/material.module';
 import { AddKindComponent } from './add-kind/add-kind.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { KindFilterPipe } from './kind-filter.pipe';
 
 @NgModule({
   imports: [
@@ -15,7 +16,7 @@ import { ReactiveFormsModule } from '@angular/forms';
   declarations: [
     KindListComponent, 
     KindComponent, 
-    AddKindComponent
+    AddKindComponent, KindFilterPipe
   ],
   exports: [
     KindListComponent, 
