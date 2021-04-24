@@ -47,7 +47,7 @@ namespace Api
                 c.SwaggerDoc("v1", new OpenApiInfo
                 {
                     Version = "v1",
-                    Title = "Tiebedebie API",
+                    Title = "Riebedebie API",
                     Description = "The Riebedebie API documentation description."
                 });
 
