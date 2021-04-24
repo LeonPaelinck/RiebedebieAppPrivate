@@ -23,7 +23,7 @@ export class KindListComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  get kinderen() : Observable<Kind[]> {
+  get kinderen$() : Observable<Kind[]> {
     return this._fetchKinderen$;
   }
 
