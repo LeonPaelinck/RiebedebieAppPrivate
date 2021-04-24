@@ -18,7 +18,8 @@ export class KindComponent implements OnInit {
   }
 
   handleDelete(): void {
-    this.delete.emit(this.kind);
+    if(confirm("Bent u zeker dat u "+this.kind.firstName+" "+this.kind.lastName + " wil verwijderen?"))
+      this.delete.emit(this.kind);
     //console.log(this.kind.firstName);
   }
 
