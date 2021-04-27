@@ -1,4 +1,4 @@
-interface KindJson {
+interface ChildJson {
   lastName: string;
   firstName: string;
   birthDate: string;
@@ -36,11 +36,18 @@ export class Kind {
 
   private _leeftijdsCategorie: LeeftijdsCategorie;
 
-  static fromJSON(json: KindJson): Kind {
+  static fromJSON(json: ChildJson): Kind {
     const kind = new Kind(json.lastName, json.firstName, new Date(json.birthDate));
     return kind;
   }
 
+   toJSON (): ChildJson {
+   return <ChildJson> {
+     lastName: this.lastName,
+     firstName: this.firstName,
+     birthDate: this.birthDate.toDateString()
+   };
+ }
   public get birthDate(): Date {
     return this._birthDate;
   }
