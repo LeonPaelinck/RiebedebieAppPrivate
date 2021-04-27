@@ -11,7 +11,7 @@ import { Kind } from '../kind.model';
 })
 export class KindListComponent implements OnInit {
   private _fetchKinderen$: Observable<Kind[]> 
-    = this._kindDataService.kinderen$;
+    = this._kindDataService.allKinderen$;
     public errorMessage: string = '';
 
   public filterKindName: string;

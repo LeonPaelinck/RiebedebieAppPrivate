@@ -45,8 +45,6 @@ export class AddKindComponent implements OnInit {
 
   onSubmit() {
     const kind = new Kind(this.kind.value.lastName, this.kind.value.firstName, new Date( this.kind.value.birthDate));
-    console.log(this.kind.value.birthDate);
-    console.log(new Date( this.kind.value.birthDate));
     this.newKind.emit(kind);
   }
 
