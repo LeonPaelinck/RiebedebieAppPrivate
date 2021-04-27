@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using RecipeApi.DTOs;
 using RiebedebieApi.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -53,8 +54,7 @@ namespace RiebedebieApi.Controllers
         [HttpPost]
         public ActionResult<Child> PostChild(ChildDTO child)
         {
-            Child childToCreate = new Child() { LastName = child.LastName, FirstName = child.FirstName, BirthDate = child.BirthDate };
-
+            Child childToCreate = new Child() { LastName = child.LastName, FirstName = child.FirstName, BirthDate = DateTime.Parse(child.BirthDate) };
             _childRepository.Add(childToCreate);
             _childRepository.SaveChanges();
             return CreatedAtAction(nameof(GetChild),

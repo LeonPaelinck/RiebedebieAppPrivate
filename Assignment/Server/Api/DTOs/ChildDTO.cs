@@ -9,6 +9,6 @@ namespace RecipeApi.DTOs
         [Required]
         public string FirstName { get; set; }
         [Required]
-        public DateTime BirthDate { get; set; }
+        public string BirthDate { get; set; }
     }
 }

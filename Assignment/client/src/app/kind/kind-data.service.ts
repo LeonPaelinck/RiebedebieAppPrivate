@@ -24,8 +24,10 @@ export class KindDataService {
   }
 
   public addKind(kind: Kind) {
-    this._kinderen = [...this._kinderen, kind];
-    console.log(this._kinderen);
+    return this.http
+      .post(`${environment.apiUrl}/children/`, kind.toJSON())
+      .pipe(catchError(this.handleError), map(Kind.fromJSON))
+      .subscribe();
   }
 
   deleteKind(kind: Kind) {
