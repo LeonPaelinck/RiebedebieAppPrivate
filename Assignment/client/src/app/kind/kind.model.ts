@@ -36,6 +36,8 @@ export class Kind {
 
   private _leeftijdsCategorie: LeeftijdsCategorie;
 
+  private _id: number;
+
   static fromJSON(json: ChildJson): Kind {
     const kind = new Kind(json.lastName, json.firstName, new Date(json.birthDate));
     return kind;
@@ -78,4 +80,11 @@ export class Kind {
   public set leeftijd(value: number) {
     this._leeftijd = value;
   }
+  public get id(): number {
+    return this.id;
+  }
+  public set id(value: number) {
+    this.id = value;
+  }
+  
 }

@@ -3,7 +3,7 @@ import { Kind } from './kind.model';
 import { KINDEREN } from './mock-kind';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-import { Observable, throwError } from 'rxjs';
+import { BehaviorSubject, Observable, throwError } from 'rxjs';
 import { catchError, map, tap} from 'rxjs/operators';
 
 @Injectable({
@@ -11,9 +11,19 @@ import { catchError, map, tap} from 'rxjs/operators';
 })
 export class KindDataService {
 
-  private _kinderen = null;
+  private _kinderen$ = new BehaviorSubject<Kind[]>([]);
+  private _kinderen: Kind[];
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+    this.kinderen$.subscribe((recipes: Kind[]) => {
+      this._kinderen = recipes; //alle kinderen lokaal opslaan
+      this._kinderen$.next(this._kinderen); //zodat component automatisch update
+    });
+   }
+
+  get allKinderen$(): Observable<Kind[]> {
+    return this._kinderen$;
+  }
 
   get kinderen$(): Observable<Kind[]> {
     return this.http.get(`${environment.apiUrl}/children`).pipe(
@@ -24,10 +34,14 @@ export class KindDataService {
   }
 
   public addKind(kind: Kind) {
+    console.log(this._kinderen$);
     return this.http
       .post(`${environment.apiUrl}/children/`, kind.toJSON())
       .pipe(catchError(this.handleError), map(Kind.fromJSON))
-      .subscribe();
+      .subscribe((arg: Kind) => {
+        this._kinderen = [...this._kinderen, arg]; //kind lokaal toevoegen (zodat niet gerefresht moet wordne)
+        this._kinderen$.next(this._kinderen);
+      });
   }
 
   deleteKind(kind: Kind) {

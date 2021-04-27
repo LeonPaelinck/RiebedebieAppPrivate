@@ -9,10 +9,11 @@
         </mat-grid-tile>
     </mat-grid-list>
 
-    <div>
-        <app-add-kind (newKind)="addKind($event)"></app-add-kind>
-    </div>
 </div>
+<div>
+  <app-add-kind (newKind)="addKind($event)"></app-add-kind>
+</div>
+
 <ng-template #loadingOrError>
     <mat-card class="error" *ngIf="errorMessage; else loading">
        Error loading the child list: {{ errorMessage }}. <br/>
@@ -22,4 +23,5 @@
       </ng-template>
     </mat-card>
   </ng-template> 
+
 
