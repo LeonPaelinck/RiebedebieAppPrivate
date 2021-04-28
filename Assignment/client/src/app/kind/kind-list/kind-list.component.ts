@@ -10,9 +10,8 @@ import { Kind } from '../kind.model';
   styleUrls: ['./kind-list.component.css']
 })
 export class KindListComponent implements OnInit {
-  private _fetchKinderen$: Observable<Kind[]> 
-    = this._kindDataService.allKinderen$;
-    public errorMessage: string = '';
+  private _fetchKinderen$: Observable<Kind[]>;
+  public errorMessage: string = '';
 
   public filterKindName: string;
   public filterKind$ = new Subject<string>();
@@ -20,15 +19,16 @@ export class KindListComponent implements OnInit {
   constructor(private _kindDataService : KindDataService) {
     this.filterKind$.subscribe(
       val => this.filterKindName = val);
+
+      this._fetchKinderen$ = this._kindDataService.allKinderen$.pipe(
+        catchError(err => {
+          this.errorMessage = err;
+          return EMPTY;
+        })
+      );
   }     
 
   ngOnInit(): void {
-    this._fetchKinderen$ = this._kindDataService.kinderen$.pipe(
-      catchError(err => {
-        this.errorMessage = err;
-        return EMPTY;
-      })
-    );
   }
 
   get kinderen$() : Observable<Kind[]> {
@@ -37,7 +37,6 @@ export class KindListComponent implements OnInit {
 
   public addKind(kind: Kind) {
     this._kindDataService.addKind(kind);
-    //console.log(kind.firstName)
   }
 
   public deleteKind(kind: Kind): void {

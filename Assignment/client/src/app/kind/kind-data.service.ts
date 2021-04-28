@@ -34,7 +34,7 @@ export class KindDataService {
   }
 
   public addKind(kind: Kind) {
-    console.log(this._kinderen$);
+    //console.log(this._kinderen$);
     return this.http
       .post(`${environment.apiUrl}/children/`, kind.toJSON())
       .pipe(catchError(this.handleError), map(Kind.fromJSON))
