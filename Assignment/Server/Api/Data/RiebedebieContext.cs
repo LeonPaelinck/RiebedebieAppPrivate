@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using RiebedebieApi.Data.Mappers;
 using RiebedebieApi.Models;
 
 public class RiebedebieContext : DbContext
@@ -12,10 +13,7 @@ public class RiebedebieContext : DbContext
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);
-        builder.Entity<Child>().Property(k => k.LastName).IsRequired().HasMaxLength(50);
-        builder.Entity<Child>().Property(k => k.FirstName).IsRequired().HasMaxLength(50);
-        builder.Entity<Child>().Property(k => k.BirthDate).IsRequired();
-
+        builder.ApplyConfiguration(new ChildConfiguration());
     }
 
     public DbSet<Child> Children { get; set; }
