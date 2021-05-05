@@ -40,6 +40,8 @@ namespace Api
 
             services.AddScoped<RiebedebieDataInitializer>();
             services.AddScoped<IChildRepository, ChildRepository>();
+            services.AddScoped<IRiebedebieRepository, RiebedebieRepository>();
+
 
             services.AddSwaggerGen(c =>
             {
