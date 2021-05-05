@@ -23,15 +23,13 @@ namespace RiebedebieApi.Models
             get 
             {
                 if (Age < 3)
-                   return AgeCategory.Peuter;
+                   return AgeCategory.TooYoung;
                 else if (this.Age < 6)
-                   return AgeCategory.Kleuter;
+                   return AgeCategory.Toddler;
                 else if (this.Age < 12)
-                   return AgeCategory.Kind;
-                else if (this.Age < 16)
-                   return AgeCategory.Tiener;
+                   return AgeCategory.Child;
                 else
-                   return AgeCategory.Animator;
+                   return AgeCategory.Adult;
             }
         }
 
