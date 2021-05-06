@@ -10,6 +10,14 @@ namespace RiebedebieApi.Data.Repositories
     public class ReservationRepository : IReservationRepository
     {
         private readonly DbSet<Reservation> _reservations;
+        private readonly RiebedebieContext _context;
+
+        public ReservationRepository(RiebedebieContext context)
+        {
+            _context = context;
+            _reservations = context.Reservations;
+        }
+
         public IEnumerable<Reservation> GetAll(int childId)
         {
             return _reservations.Where(res => res.Child.Id == childId).ToList();

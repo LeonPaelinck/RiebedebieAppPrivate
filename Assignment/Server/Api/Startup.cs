@@ -41,6 +41,7 @@ namespace Api
             services.AddScoped<RiebedebieDataInitializer>();
             services.AddScoped<IChildRepository, ChildRepository>();
             services.AddScoped<IRiebedebieRepository, RiebedebieRepository>();
+            services.AddScoped<IReservationRepository, ReservationRepository>();
 
 
             services.AddSwaggerGen(c =>

@@ -20,4 +20,5 @@ public class RiebedebieContext : DbContext
 
     public DbSet<Child> Children { get; set; }
     public DbSet<Riebedebie> Riebedebies { get; set; }
+    public DbSet<Reservation> Reservations { get; set; }
 }

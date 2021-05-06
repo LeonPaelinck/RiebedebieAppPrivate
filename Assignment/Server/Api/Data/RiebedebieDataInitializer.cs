@@ -37,8 +37,8 @@ namespace RiebedebieApi.Data
                 Riebedebie kleuterwerking = new Riebedebie() { DailyFee = 4.00M, Name = "Kleuterwerking", AgeCategory = AgeCategory.Toddler, MaxChildrenPerDay = 50 };
                 var riebedebies = new List<Riebedebie> { kinderwerking, kleuterwerking };
                 
-                kinderwerking.Register(child3, new DateTime(2021, 07, 21), true, false);
-                kleuterwerking.Register(child4, new DateTime(2021, 07, 20), false, false);
+                Reservation res3 = kinderwerking.Register(child3, new DateTime(2021, 07, 21), true, false);
+                Reservation res4 = kleuterwerking.Register(child4, new DateTime(2021, 07, 20), false, false);
 
                 _dbContext.Children.AddRange(kinderen);
                 _dbContext.Riebedebies.AddRange(riebedebies);
