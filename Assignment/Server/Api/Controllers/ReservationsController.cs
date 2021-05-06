@@ -24,7 +24,7 @@ namespace RiebedebieApi.Controllers
             _childRepository = childrenRepos;
         }
 
-        // GET: api/Reservation/5
+        // GET: api/Reservations/5
         /// <summary>
         /// Get the reservation with given id
         /// </summary>
@@ -44,7 +44,7 @@ namespace RiebedebieApi.Controllers
         /// </summary>
         /// <param name="childId">The child's id</param>
         /// <returns>A list of all reservations from that child</returns>
-        [HttpGet("{childId}")]
+        [HttpGet("{childId}/reservations")]
         public IEnumerable<Reservation> GetReservations(int childId)
         {
             return _reservationRepository.GetAll(childId).ToList();
