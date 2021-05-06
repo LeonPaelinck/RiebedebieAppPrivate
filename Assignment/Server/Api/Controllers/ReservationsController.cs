@@ -14,25 +14,40 @@ namespace RiebedebieApi.Controllers
     public class ReservationsController : ControllerBase
     {
         private readonly IRiebedebieRepository _riebedebieRepository;
+        private readonly IReservationRepository _reservationRepository;
         private readonly IChildRepository _childRepository;
 
-        public ReservationsController(IRiebedebieRepository context, IChildRepository childrenRepos)
+        public ReservationsController(IRiebedebieRepository context, IReservationRepository reservationRepository, IChildRepository childrenRepos)
         {
             _riebedebieRepository = context;
+            _reservationRepository = reservationRepository;
             _childRepository = childrenRepos;
         }
 
-        // GET: api/Reservations/1/1
+        // GET: api/Reservation/5
+        /// <summary>
+        /// Get the reservation with given id
+        /// </summary>
+        /// <param name="id">the id of the reservation</param>
+        /// <returns>The reservation</returns>
+        [HttpGet("{id}")]
+        public ActionResult<Reservation> GetReservation(int id)
+        {
+            Reservation reservation = _reservationRepository.GetBy(id);
+            if (reservation == null) return NotFound();
+            return reservation;
+        }
+
+        // GET: api/Reservations/1
         /// <summary>
         /// Get every reservation from a child
         /// </summary>
-        /// <param name="riebedebieId">The riebedebie's id</param>
         /// <param name="childId">The child's id</param>
         /// <returns>A list of all reservations from that child</returns>
-        [HttpGet]
-        public IEnumerable<Reservation> GetReservationsBy(int childId, int riebedebieId)
+        [HttpGet("{childId}")]
+        public IEnumerable<Reservation> GetReservations(int childId)
         {
-            return _riebedebieRepository.getBy(riebedebieId).Reservations.Where(res => res.Child.Id == childId);
+            return _reservationRepository.GetAll(childId).ToList();
         }
 
         // POST: api/Reservation
@@ -49,11 +64,11 @@ namespace RiebedebieApi.Controllers
             Riebedebie rieb = _riebedebieRepository.getBy(riebedebieId);
             try
             {
-                Child child = null;// _childRepository.GetBy(childId);
+                Child child = _childRepository.GetBy(childId);
                 Reservation res = rieb.Register(child, DateTime.Parse(reservation.Date), reservation.Earlier, reservation.Later);
                 _riebedebieRepository.SaveChanges();
-                return res;
-                   
+                return CreatedAtAction(nameof(GetReservation), new { id = res.Id }, res);
+
             } catch (ArgumentException e)
             {
                 return BadRequest(e);
