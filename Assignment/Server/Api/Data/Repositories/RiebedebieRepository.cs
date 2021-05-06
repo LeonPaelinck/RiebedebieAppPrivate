@@ -16,11 +16,22 @@ namespace RiebedebieApi.Data.Repositories
         public RiebedebieRepository(RiebedebieContext context)
         {
             _context = context;
+            _riebedebies = _context.Riebedebies;
+        }
+
+        public IEnumerable<Riebedebie> getAll()
+        {
+            return _riebedebies.AsNoTracking().ToList();
         }
 
         public Riebedebie getBy(int id)
         {
-            return _context.Riebedebies.Where(r => r.Id == id).Include(r => r.Reservations).FirstOrDefault();
+            return _riebedebies.Where(r => r.Id == id).Include(r => r.Reservations).FirstOrDefault();
+        }
+
+        public Reservation GetReservationBy(int riebedebieId, int id)
+        {
+            return getBy(riebedebieId).Reservations.Where(res => res.Id == id).FirstOrDefault();
         }
 
         public void SaveChanges()

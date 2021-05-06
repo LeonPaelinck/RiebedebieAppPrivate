@@ -16,6 +16,8 @@ namespace RiebedebieApi.Models
         [Required]
         public DateTime BirthDate { get; set; }
 
+        //public ICollection<Reservation> Reservations { get; set; }
+
         public int Age { get { return DateTime.Now.Year - BirthDate.Year; } }
 
         public AgeCategory AgeCategory 
@@ -24,15 +26,21 @@ namespace RiebedebieApi.Models
             {
                 if (Age < 3)
                    return AgeCategory.TooYoung;
-                else if (this.Age < 6)
+                else if (Age < 6)
                    return AgeCategory.Toddler;
-                else if (this.Age < 12)
+                else if (Age < 12)
                    return AgeCategory.Child;
                 else
                    return AgeCategory.Adult;
             }
         }
 
+        /*public void AddReservation(Reservation reservation)
+        {
+            if (Reservations.Any(res => res.Date.Equals(reservation.Date)))
+                throw new ArgumentException("There is already a reservation on " + reservation.Date.ToString());
+            Reservations.Add(reservation);
+        }*/
 
         public Child()
         {

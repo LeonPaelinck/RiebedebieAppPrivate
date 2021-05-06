@@ -20,16 +20,28 @@ namespace RiebedebieApi.Data
             _dbContext.Database.EnsureDeleted();
             if (_dbContext.Database.EnsureCreated())
             {
+                Child child1 = new Child() { FirstName = "Chiara", LastName = "Van Campe", BirthDate = new DateTime(1999, 6, 14) };
+                Child child3 = new Child() { FirstName = "Victor", LastName = "Robbrecht", BirthDate = new DateTime(2010, 10, 4) };
+                Child child4 = new Child() { FirstName = "Wouter", LastName = "Denissen", BirthDate = new DateTime(2018, 8, 8) };
+
                 var kinderen = new List<Child>
                 {
-                     new Child() { FirstName = "Chiara", LastName = "Van Campe", BirthDate = new DateTime(1999, 6, 14)},
+                     child1,
                      new Child() { FirstName = "Zjef", LastName = "Goethals", BirthDate = new DateTime(2008, 5, 6)},
-                     new Child() { FirstName = "Victor", LastName = "Robbrecht", BirthDate = new DateTime(2010, 10, 4)},
-                     new Child() { FirstName = "Wouter", LastName = "Denissen", BirthDate = new DateTime(2018, 8, 8)},
+                     child3,
+                     child4,
                      new Child() { FirstName = "Amélie", LastName = "De Kimpe", BirthDate = new DateTime(2019, 6, 14)}
                 };
 
+                Riebedebie kinderwerking = new Riebedebie() { DailyFee = 4.00M, Name = "Kinderwerking", AgeCategory = AgeCategory.Child, MaxChildrenPerDay = 100};
+                Riebedebie kleuterwerking = new Riebedebie() { DailyFee = 4.00M, Name = "Kleuterwerking", AgeCategory = AgeCategory.Toddler, MaxChildrenPerDay = 50 };
+                var riebedebies = new List<Riebedebie> { kinderwerking, kleuterwerking };
+                
+                kinderwerking.Register(child3, new DateTime(2021, 07, 21), true, false);
+                kleuterwerking.Register(child4, new DateTime(2021, 07, 20), false, false);
+
                 _dbContext.Children.AddRange(kinderen);
+                _dbContext.Riebedebies.AddRange(riebedebies);
 
                 _dbContext.SaveChanges();
             }
