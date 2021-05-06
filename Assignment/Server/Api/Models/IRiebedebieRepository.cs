@@ -5,9 +5,11 @@ using System.Threading.Tasks;
 
 namespace RiebedebieApi.Models
 {
-    interface IRiebedebieRepository
+    public interface IRiebedebieRepository
     {
         Riebedebie getBy(int id);
+        IEnumerable<Riebedebie> getAll();
+        Reservation GetReservationBy(int riebedebieId, int id);
         void SaveChanges();
     }
 }

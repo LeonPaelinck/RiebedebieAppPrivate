@@ -9,12 +9,12 @@ namespace RiebedebieApi.Models
     {
         #region Properties
         public int Id { get; set; }
+        public String Name { get; set; }
+        public AgeCategory AgeCategory { get; set; }
         public ICollection<Reservation> Reservations { get; private set; }
         //public ICollection<Reservation> ToddlerReservations { get; private set; }
-        public int DailyFeeChildren;
-        public int DailyFeeToddlers;
-        public int maxChildrenPerDay { get; set; }
-        public int maxToddlersPerDay { get; set; }
+        public decimal DailyFee;
+        public int MaxChildrenPerDay { get; set; }
         #endregion
 
         public Riebedebie()
@@ -23,36 +23,28 @@ namespace RiebedebieApi.Models
             //ToddlerReservations = new List<Reservation>();
         }
 
-        public Reservation Reserveer(Child child, DateTime day, bool earlier, bool overtime)
+        public Reservation Register(Child child, DateTime day, bool earlier, bool overtime)
         {
-            int max;
-            int price;
-            switch (child.AgeCategory)
-            {
-                case AgeCategory.Child:
-                    max = maxChildrenPerDay;
-                    price = DailyFeeChildren;
-                    break;
-                case AgeCategory.Toddler:
-                    max = maxToddlersPerDay;
-                    price = DailyFeeToddlers;
-                    break;
-                default:
-                    throw new ArgumentException("Only children or toddlers can register");
-            }
-            IEnumerable<Reservation> reservations = GetReservationsByDayByAgeCategory(day, child.AgeCategory);
-            if (reservations.Count() >= max)
+            IEnumerable<Reservation> reservations = GetReservationsByDay(day);
+            if (reservations.Count() >= MaxChildrenPerDay)
                 throw new ArgumentException("The maximum number of people has been exceeded.");
-            Reservation reservation = new Reservation() { Child = child, Date = day, Earlier = earlier, Later = overtime, PricePerDay = price, AfterHoursPrice = price/2 };
+            if (reservations.Any(res => res.Child.Equals(child)))
+                throw new ArgumentException("This child has already been registered on that day");
+            Reservation reservation = new Reservation() { Child = child, Date = day, Earlier = earlier, Later = overtime, PricePerDay = DailyFee, AfterHoursPrice = DailyFee/2 };
             Reservations.Add(reservation);
             //parent.AddReservation(reservation);
             return reservation;
 
         }
 
-        private IEnumerable<Reservation> GetReservationsByDayByAgeCategory(DateTime day, AgeCategory? ageCategory)
+        public int howManyReservationsLeft(DateTime date, Child child)
         {
-            return Reservations.Where(res => res.Child.AgeCategory.Equals(ageCategory)).Where(res => res.Date.Equals(day));
+            return MaxChildrenPerDay - GetReservationsByDay(date).Count();
+        }
+
+        private IEnumerable<Reservation> GetReservationsByDay(DateTime day)
+        {
+            return Reservations.Where(res => res.Date.Equals(day));
         }
 
        /* private IEnumerable<Reservation> GetToddlerReservationsByDay(DateTime day)
