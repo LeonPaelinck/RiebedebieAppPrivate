@@ -35,8 +35,9 @@ namespace Api
 
             services.AddControllers();
 
+            //sqllite ipv sqlserver
             services.AddDbContext<RiebedebieContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("RiebedebieContext")));
+                options.UseSqlite(Configuration.GetConnectionString("RiebedebieContext")));
 
             services.AddScoped<RiebedebieDataInitializer>();
             services.AddScoped<IChildRepository, ChildRepository>();
@@ -62,7 +63,7 @@ namespace Api
 
             services.AddCors(options =>
                 options.AddPolicy("AllowAllOrigins", builder =>
-                builder.AllowAnyOrigin()));
+                builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod()));
 
         }
 
@@ -78,6 +79,8 @@ namespace Api
 
             app.UseHttpsRedirection();
 
+            app.UseCors("AllowAllOrigins");
+
             app.UseRouting();
 
             app.UseAuthorization();
@@ -86,8 +89,6 @@ namespace Api
             {
                 endpoints.MapControllers();
             });
-
-            app.UseCors("AllowAllOrigins");
 
             riebedebieDataInitializer.InitializeData();  //.Wait();
         }
