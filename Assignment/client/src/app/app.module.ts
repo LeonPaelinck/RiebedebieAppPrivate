@@ -7,6 +7,7 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { KindModule } from './kind/kind.module';
+import { ReservationComponent } from './kind/reservation/reservation.component';
 
 @NgModule({
   imports: [
@@ -17,7 +18,7 @@ import { KindModule } from './kind/kind.module';
     HttpClientModule
   ],
   providers: [],
-  declarations: [AppComponent],
+  declarations: [AppComponent, ReservationComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
