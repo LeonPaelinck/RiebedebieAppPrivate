@@ -1,4 +1,5 @@
 interface ChildJson {
+  id: number;
   lastName: string;
   firstName: string;
   birthDate: string;
@@ -13,7 +14,7 @@ enum LeeftijdsCategorie {
 }
 
 export class Kind {
-
+  private _id: number;
   constructor(
       private _lastName: string,
       private _firstName: string,
@@ -36,10 +37,9 @@ export class Kind {
 
   private _leeftijdsCategorie: LeeftijdsCategorie;
 
-  private _id: number;
-
   static fromJSON(json: ChildJson): Kind {
     const kind = new Kind(json.lastName, json.firstName, new Date(json.birthDate));
+    kind.id = json.id;
     return kind;
   }
 
@@ -81,10 +81,10 @@ export class Kind {
     this._leeftijd = value;
   }
   public get id(): number {
-    return this.id;
+    return this._id;
   }
   public set id(value: number) {
-    this.id = value;
+    this._id = value;
   }
   
 }

@@ -45,11 +45,13 @@ export class KindDataService {
   }
 
   deleteKind(kind: Kind) {
-    const index = this._kinderen.indexOf(kind, 0);
-    if (index > -1) {
-       this._kinderen.splice(index, 1);
-    }   console.log(kind);
-   console.log(this._kinderen);
+    return this.http
+    .delete(`${environment.apiUrl}/children/${kind.id}`)
+    .pipe(tap(console.log), catchError(this.handleError))
+    .subscribe(() => {
+      this._kinderen = this._kinderen.filter(k => k.id != kind.id);
+      this._kinderen$.next(this._kinderen);
+    });
   }
 
   handleError(err: any): Observable<never>{
