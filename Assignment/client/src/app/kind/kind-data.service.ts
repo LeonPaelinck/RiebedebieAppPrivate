@@ -27,7 +27,6 @@ export class KindDataService {
 
   get kinderen$(): Observable<Kind[]> {
     return this.http.get(`${environment.apiUrl}/children/`).pipe(
-      delay(4000),
       catchError(this.handleError),
       tap(console.log),
       map((list: any[]): Kind[] => list.map(Kind.fromJSON))
