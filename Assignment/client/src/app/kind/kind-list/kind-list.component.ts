@@ -20,15 +20,16 @@ export class KindListComponent implements OnInit {
     this.filterKind$.subscribe(
       val => this.filterKindName = val);
 
-      this._fetchKinderen$ = this._kindDataService.allKinderen$.pipe(
-        catchError(err => {
-          this.errorMessage = err;
-          return EMPTY;
-        })
-      );
   }     
 
   ngOnInit(): void {
+    
+    this._fetchKinderen$ = this._kindDataService.allKinderen$.pipe(
+      catchError(err => {
+        this.errorMessage = err;
+        return EMPTY;
+      })
+    );
   }
 
   get kinderen$() : Observable<Kind[]> {

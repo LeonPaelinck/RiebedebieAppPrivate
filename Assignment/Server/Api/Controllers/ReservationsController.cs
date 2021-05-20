@@ -54,17 +54,16 @@ namespace RiebedebieApi.Controllers
         /// <summary>
         /// Creates and persists a new reservation
         /// </summary>
-        /// <param name="riebedebieId">The id of the riebedebier</param>
         /// <param name="childId">The id of the child that to be registered</param>
         /// <param name="reservation">The info needed for the added reservation</param>
         /// <returns>The added Child</returns>
         [HttpPost]
-        public ActionResult<Reservation> PostReservation(int riebedebieId, int childId, ReservationDTO reservation)
+        public ActionResult<Reservation> PostReservation(int childId, ReservationDTO reservation)
         {
-            Riebedebie rieb = _riebedebieRepository.getBy(riebedebieId);
             try
             {
                 Child child = _childRepository.GetBy(childId);
+                Riebedebie rieb = _riebedebieRepository.getAll().FirstOrDefault(r => r.AgeCategory == child.AgeCategory);
                 Reservation res = rieb.Register(child, DateTime.Parse(reservation.Date), reservation.Earlier, reservation.Later);
                 _riebedebieRepository.SaveChanges();
                 return CreatedAtAction(nameof(GetReservation), new { id = res.Id }, res);

@@ -26,7 +26,7 @@ export class KindDataService {
   }
 
   get kinderen$(): Observable<Kind[]> {
-    return this.http.get(`${environment.apiUrl}/children`).pipe(
+    return this.http.get(`${environment.apiUrl}/children/`).pipe(
       catchError(this.handleError),
       tap(console.log),
       map((list: any[]): Kind[] => list.map(Kind.fromJSON))
@@ -37,7 +37,9 @@ export class KindDataService {
     //console.log(this._kinderen$);
     return this.http
       .post(`${environment.apiUrl}/children/`, kind.toJSON())
-      .pipe(catchError(this.handleError), map(Kind.fromJSON))
+      .pipe(
+        catchError(this.handleError), 
+        map(Kind.fromJSON))
       .subscribe((arg: Kind) => {
         this._kinderen = [...this._kinderen, arg]; //kind lokaal toevoegen (zodat niet gerefresht moet wordne)
         this._kinderen$.next(this._kinderen);
@@ -56,13 +58,16 @@ export class KindDataService {
 
   handleError(err: any): Observable<never>{
     let errorMessage: string;
-    if (err instanceof HttpErrorResponse) {
+    if (err.error instanceof ErrorEvent) {
+      errorMessage = `An error occurred: ${err.error.message}`;
+    } else if (err instanceof HttpErrorResponse) {
       errorMessage = `'${err.status} ${err.statusText}' when accessing '${err.url}'`;
     } else {
       errorMessage = `an unknown error occurred ${err}`;
     }
-    console.error(err);
+    //console.error(err);
     return throwError(errorMessage);
   }
 
+ 
 }

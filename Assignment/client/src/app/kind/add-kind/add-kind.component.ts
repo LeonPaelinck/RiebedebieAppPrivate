@@ -1,5 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { KindDataService } from '../kind-data.service';
 import { Kind } from '../kind.model';
 
 function validateKind(control: FormGroup)
@@ -31,7 +32,8 @@ export class AddKindComponent implements OnInit {
 
   @Output() public newKind = new EventEmitter<Kind>();
 
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder,
+    private _kindDataService: KindDataService) { }
 
   ngOnInit() {
     this.kind = this.fb.group({
@@ -45,7 +47,7 @@ export class AddKindComponent implements OnInit {
 
   onSubmit() {
     const kind = new Kind(this.kind.value.lastName, this.kind.value.firstName, new Date( this.kind.value.birthDate));
-    this.newKind.emit(kind);
+    this._kindDataService.addKind(kind);
   }
 
   getErrorMessage(errors: any): string {
