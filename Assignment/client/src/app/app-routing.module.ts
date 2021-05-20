@@ -1,8 +1,12 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 const appRoutes: Routes = [
+  {
+    path: 'kind',
+    loadChildren: () => import('./kind/kind.module').then(mod => mod.KindModule)
+  },
   { path: '', redirectTo: 'kind/list', pathMatch: 'full'}, //defaultpagina
   { path: '**', component: PageNotFoundComponent} ,//onbestaande urls 
 ];
@@ -10,7 +14,7 @@ const appRoutes: Routes = [
 @NgModule({
   declarations: [],
   imports: [
-    RouterModule.forRoot(appRoutes, {enableTracing: true})
+    RouterModule.forRoot(appRoutes, {preloadingStrategy: PreloadAllModules})
   ],
   exports: [
     RouterModule

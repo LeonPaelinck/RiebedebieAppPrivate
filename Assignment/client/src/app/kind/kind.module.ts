@@ -10,10 +10,9 @@ import { AddReservationComponent } from './add-reservation/add-reservation.compo
 import { RouterModule } from '@angular/router';
 
 const routes = [
-  { path: 'kind/list', component: KindListComponent },
-  { path: 'kind/add', component: AddKindComponent },
-  { path: 'kind/add-reservation/:kindid', component: AddReservationComponent },
-  
+  { path: 'list', component: KindListComponent },
+  { path: 'add', component: AddKindComponent },
+  { path: 'add-reservation/:kindid', component: AddReservationComponent } 
 ];
 
 @NgModule({
