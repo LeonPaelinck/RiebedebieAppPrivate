@@ -3,18 +3,14 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { KindDataService } from '../kind-data.service';
 import { Kind } from '../kind.model';
 
-function validateKind(control: FormGroup)
+function validateBirthDate(control: FormGroup)
   : { [key: string]: any } {
-    /* if (control.get('firstName').value == null || control.get('lastName').value == null)
-       {
-        return { required: true}
-      }
-    else */ if (
-      new Date(control.get('birthDate').value) >= new Date()
+    if (
+      new Date(control.value) >= new Date()
     ) {
       return { dateInFuture: true };
     } else if (
-      new Date().getFullYear() - new Date(control.get('birthDate').value).getFullYear() >= 16
+      new Date().getFullYear() - new Date(control.value).getFullYear() >= 16
     ) {
       return { adult: true };
     }
@@ -39,9 +35,8 @@ export class AddKindComponent implements OnInit {
     this.kind = this.fb.group({
       firstName: ['Chiara', [Validators.required]],
       lastName: ['Van Campe', [Validators.required]],
-      birthDate: ['2010-10-04', [Validators.required]]
-    },
-    { validator: validateKind }
+      birthDate: ['2010-10-04', [Validators.required, validateBirthDate]]
+    }
     );
   }
 
@@ -51,6 +46,7 @@ export class AddKindComponent implements OnInit {
   }
 
   getErrorMessage(errors: any): string {
+    console.log(errors);
     if (!errors) {
       return null;
     }
