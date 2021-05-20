@@ -5,6 +5,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { BehaviorSubject, Observable, throwError } from 'rxjs';
 import { catchError, delay, map, tap} from 'rxjs/operators';
+import { Reservatie } from './reservatie.model';
 
 @Injectable({
   providedIn: 'root'
@@ -50,6 +51,13 @@ export class KindDataService {
         this._kinderen = [...this._kinderen, arg]; //kind lokaal toevoegen (zodat niet gerefresht moet wordne)
         this._kinderen$.next(this._kinderen);
       });
+  }
+
+    public addReservatie(kind: Kind, res: Reservatie) {
+      console.log(res);
+
+      return this.http
+      .post(`${environment.apiUrl}/reservations/${kind.id}`, res.toJSON());
   }
 
   deleteKind(kind: Kind) {

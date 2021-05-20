@@ -1,1 +1,23 @@
 <h1>Inschrijven van {{kind.firstName}} {{kind.lastName}}</h1>
+<mat-card>
+    <form [formGroup]="reservatie" (ngSubmit)='onSubmit()'>
+        <p><mat-form-field >
+              <input matInput placeholder="datum" type="date" 
+              aria-label="datum"
+              formControlName="date"
+              required
+              data-cy="date"
+              #spy/>
+              <mat-error *ngIf="reservatie.get('date')['errors'] && 
+              reservatie.get('date').touched"> 
+                      {{ getErrorMessage(reservatie.get('date')['errors']) }}
+                </mat-error>
+        </mat-form-field></p>
+        
+        <mat-card-actions>
+            <button type='submit'mat-raised-button  [disabled]='!reservatie.valid' data-cy="addreservationButton">
+                bevestig reservatie
+              </button>
+          </mat-card-actions>
+    </form>
+    </mat-card>

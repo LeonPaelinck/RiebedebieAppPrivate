@@ -6,8 +6,8 @@ namespace RecipeApi.DTOs
     {
         [Required]
         public string Date { get; set; }
-        public bool Earlier { get; set; }
-        public bool Later { get; set; }
+        public string Earlier { get; set; }
+        public string Later { get; set; }
 
     }
 }

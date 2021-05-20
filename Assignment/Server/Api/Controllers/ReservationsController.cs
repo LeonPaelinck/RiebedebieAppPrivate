@@ -64,7 +64,7 @@ namespace RiebedebieApi.Controllers
             {
                 Child child = _childRepository.GetBy(childId);
                 Riebedebie rieb = _riebedebieRepository.getAll().FirstOrDefault(r => r.AgeCategory == child.AgeCategory);
-                Reservation res = rieb.Register(child, DateTime.Parse(reservation.Date), reservation.Earlier, reservation.Later);
+                Reservation res = rieb.Register(child, DateTime.Parse(reservation.Date), Convert.ToBoolean(reservation.Earlier), Convert.ToBoolean(reservation.Later));
                 _riebedebieRepository.SaveChanges();
                 return CreatedAtAction(nameof(GetReservation), new { id = res.Id }, res);
 
