@@ -33,6 +33,12 @@ export class KindDataService {
     );
   }
 
+  getKind$(id: string): Observable<Kind> {
+    return this.http
+      .get(`${environment.apiUrl}/children/${id}`)
+      .pipe(catchError(this.handleError), map(Kind.fromJSON)); // returns just one recipe, as json
+  }
+
   public addKind(kind: Kind) {
     //console.log(this._kinderen$);
     return this.http
