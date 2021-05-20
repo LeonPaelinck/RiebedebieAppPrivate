@@ -13,7 +13,9 @@ namespace RiebedebieApi.Data.Mappers
         public void Configure(EntityTypeBuilder<Reservation> builder)
         {
             builder.ToTable("Reservation");
-            builder.HasOne(res => res.Child);
+            builder.HasOne(res => res.Child)
+                .WithMany()
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

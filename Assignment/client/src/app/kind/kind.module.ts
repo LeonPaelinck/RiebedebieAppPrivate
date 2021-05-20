@@ -6,22 +6,30 @@ import { MaterialModule } from '../material/material.module';
 import { AddKindComponent } from './add-kind/add-kind.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { KindFilterPipe } from './kind-filter.pipe';
+import { AddReservationComponent } from './add-reservation/add-reservation.component';
+import { RouterModule } from '@angular/router';
+
+const routes = [
+  { path: 'list', component: KindListComponent },
+  { path: 'add', component: AddKindComponent },
+  { path: 'add-reservation/:kindid', component: AddReservationComponent } 
+];
 
 @NgModule({
   imports: [
     CommonModule,
     MaterialModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    RouterModule.forChild(routes)
   ],
   declarations: [
     KindListComponent, 
     KindComponent, 
-    AddKindComponent, KindFilterPipe
+    AddKindComponent, KindFilterPipe, AddReservationComponent
   ],
   exports: [
     KindListComponent, 
-    AddKindComponent,
-    ReactiveFormsModule
-  ],
+    AddKindComponent
+    ],
 })
 export class KindModule { }

@@ -10,9 +10,6 @@
     </mat-grid-list>
 
 </div>
-<div>
-  <app-add-kind (newKind)="addKind($event)"></app-add-kind>
-</div>
 
 <ng-template #loadingOrError>
     <mat-card class="error" *ngIf="errorMessage; else loading">
@@ -22,6 +19,6 @@
         <mat-spinner></mat-spinner>
       </ng-template>
     </mat-card>
-  </ng-template> 
+</ng-template> 
 
 
