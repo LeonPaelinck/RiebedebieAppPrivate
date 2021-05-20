@@ -7,10 +7,6 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { KindModule } from './kind/kind.module';
-import { ReservationComponent } from './kind/reservation/reservation.component';
-import { RouterModule, Routes } from '@angular/router';
-import { KindListComponent } from './kind/kind-list/kind-list.component';
-import { AddKindComponent } from './kind/add-kind/add-kind.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { MainNavComponent } from './main-nav/main-nav.component';
 import { LayoutModule } from '@angular/cdk/layout';
@@ -19,13 +15,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
+import { AppRoutingModule } from './app-routing.module';
 
-const appRoutes: Routes = [
-  { path: 'kind/list', component: KindListComponent },
-  { path: 'kind/add', component: AddKindComponent },
-  { path: '', redirectTo: 'kind/list', pathMatch: 'full'}, //startpagina (enige voorlopig)
-  { path: '**', component: PageNotFoundComponent} //onbestaande urls
-];
+
 
 @NgModule({
   imports: [
@@ -34,16 +26,16 @@ const appRoutes: Routes = [
     BrowserAnimationsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    RouterModule.forRoot(appRoutes),
     LayoutModule,
     MatToolbarModule,
     MatButtonModule,
     MatSidenavModule,
     MatIconModule,
-    MatListModule
+    MatListModule,
+    AppRoutingModule
   ],
   providers: [],
-  declarations: [AppComponent, ReservationComponent, PageNotFoundComponent, MainNavComponent],
+  declarations: [AppComponent, PageNotFoundComponent, MainNavComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
