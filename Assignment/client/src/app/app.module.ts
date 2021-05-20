@@ -8,6 +8,17 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { KindModule } from './kind/kind.module';
 import { ReservationComponent } from './kind/reservation/reservation.component';
+import { RouterModule, Routes } from '@angular/router';
+import { KindListComponent } from './kind/kind-list/kind-list.component';
+import { AddKindComponent } from './kind/add-kind/add-kind.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+
+const appRoutes: Routes = [
+  { path: 'kind/list', component: KindListComponent },
+  { path: 'kind/add', component: AddKindComponent },
+  { path: '', redirectTo: 'kind/list', pathMatch: 'full'}, //startpagina (enige voorlopig)
+  { path: '**', component: PageNotFoundComponent} //onbestaande urls
+];
 
 @NgModule({
   imports: [
@@ -15,10 +26,11 @@ import { ReservationComponent } from './kind/reservation/reservation.component';
     KindModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    RouterModule.forRoot(appRoutes)
   ],
   providers: [],
-  declarations: [AppComponent, ReservationComponent],
+  declarations: [AppComponent, ReservationComponent, PageNotFoundComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
