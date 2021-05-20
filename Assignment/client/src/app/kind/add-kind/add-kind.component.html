@@ -5,6 +5,7 @@
             aria-label="voornaam"
             formControlName="firstName"
             required
+            data-cy="firstName"
             #spy
             />
       <mat-error *ngIf="kind.get('firstName')['errors'] && 
@@ -17,17 +18,19 @@
           aria-label="familienaam"
           formControlName="lastName"
           required
+          data-cy="lastName"
           #spy/>
           <mat-error *ngIf="kind.get('lastName')['errors'] && 
           kind.get('lastName').touched">
                   {{ getErrorMessage(kind.get('lastName')['errors']) }}
             </mat-error>
     </mat-form-field></p>
-    <p><mat-form-field>
+    <p><mat-form-field >
           <input matInput placeholder="geboortedatum" type="date" 
           aria-label="geboortedatum"
           formControlName="birthDate"
           required
+          data-cy="birthDate"
           #spy/>
           <mat-error *ngIf="kind.get('birthDate')['errors'] && 
           kind.get('birthDate').touched"> 
@@ -35,7 +38,7 @@
             </mat-error>
     </mat-form-field></p>
     <mat-card-actions>
-        <button type='submit'mat-raised-button  [disabled]='!kind.valid'>
+        <button type='submit'mat-raised-button  [disabled]='!kind.valid' data-cy="addkindButton">
             registreer kind
           </button>
       </mat-card-actions>
