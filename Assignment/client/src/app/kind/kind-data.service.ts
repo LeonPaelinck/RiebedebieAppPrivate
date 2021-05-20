@@ -4,7 +4,7 @@ import { KINDEREN } from './mock-kind';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { BehaviorSubject, Observable, throwError } from 'rxjs';
-import { catchError, map, tap} from 'rxjs/operators';
+import { catchError, delay, map, tap} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -27,6 +27,7 @@ export class KindDataService {
 
   get kinderen$(): Observable<Kind[]> {
     return this.http.get(`${environment.apiUrl}/children/`).pipe(
+      delay(4000),
       catchError(this.handleError),
       tap(console.log),
       map((list: any[]): Kind[] => list.map(Kind.fromJSON))
