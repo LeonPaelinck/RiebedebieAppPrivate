@@ -12,7 +12,8 @@ it('mock child post', function() {
     cy.wait(1000);
     cy.get('[data-cy=lastName]').clear().type('Van Campe')
     cy.wait(1000);
-    cy.get('[data-cy=addkindButton]').click()
+    cy.get('[data-cy=addkindButton]').click();
+
   });
 
   it('failed validation', function() {
