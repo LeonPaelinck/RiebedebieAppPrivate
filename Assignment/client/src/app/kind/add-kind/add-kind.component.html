@@ -1,3 +1,4 @@
+<mat-card>
 <form [formGroup]="kind" (ngSubmit)='onSubmit()'>
     <p><mat-form-field>
       <input matInput placeholder="voornaam" type="text" 
@@ -30,7 +31,7 @@
           #spy/>
           <mat-error *ngIf="kind.get('birthDate')['errors'] && 
           kind.get('birthDate').touched"> 
-          {{ getErrorMessage(kind.get('birthDate')['errors']) }}
+                  {{ getErrorMessage(kind.get('birthDate')['errors']) }}
             </mat-error>
     </mat-form-field></p>
     <mat-card-actions>
@@ -39,3 +40,4 @@
           </button>
       </mat-card-actions>
 </form>
+</mat-card>
