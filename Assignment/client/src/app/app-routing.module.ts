@@ -8,9 +8,10 @@ import { AddReservationComponent } from './kind/add-reservation/add-reservation.
 const appRoutes: Routes = [
   { path: 'kind/list', component: KindListComponent },
   { path: 'kind/add', component: AddKindComponent },
-  { path: 'kind/add-reservation/:kindid', component: AddReservationComponent},
+  { path: 'kind/add-reservation/:kindid', component: AddReservationComponent },
   { path: '', redirectTo: 'kind/list', pathMatch: 'full'}, //defaultpagina
-  { path: '**', component: PageNotFoundComponent} //onbestaande urls
+  { path: '**', component: PageNotFoundComponent} ,//onbestaande urls
+  
 ];
 
 @NgModule({
