@@ -10,6 +10,7 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { MainNavComponent } from './main-nav/main-nav.component';
 import { AppRoutingModule } from './app-routing.module';
 import { MaterialModule } from './material/material.module';
+import { UserModule } from './user/user.module';
 
 
 
@@ -21,7 +22,8 @@ import { MaterialModule } from './material/material.module';
     
     BrowserAnimationsModule,
     HttpClientModule,
-    MaterialModule
+    MaterialModule,
+    UserModule
 
   ],
   providers: [],
