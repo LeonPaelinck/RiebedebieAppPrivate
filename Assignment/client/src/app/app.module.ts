@@ -18,12 +18,12 @@ import { UserModule } from './user/user.module';
   imports: [
     BrowserModule,
     KindModule,  
-    AppRoutingModule,
     
     BrowserAnimationsModule,
     HttpClientModule,
     MaterialModule,
-    UserModule
+    UserModule,
+    AppRoutingModule
 
   ],
   providers: [],
