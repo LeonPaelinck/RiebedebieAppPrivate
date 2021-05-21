@@ -52,6 +52,9 @@ namespace RiebedebieApi.Data
                 _dbContext.SaveChanges();
 
                 Parent parent1 = new Parent { Email = "parent@stekene.be", FirstName = "John", LastName = "Doe" };
+                parent1.AddChild(child1);
+                parent1.AddChild(child3);
+                parent1.AddChild(child4);
                 _dbContext.Parents.Add(parent1);
                 await CreateUser(parent1.Email, "P@ssword1111");
 
