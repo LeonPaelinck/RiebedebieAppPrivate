@@ -3,7 +3,7 @@ it('mock child post', function() {
     cy.route({
       method: 'POST',
       url: '/api/children',
-      status: 200,
+      status: 201,
       response: 'SUCCES'
     });
 
