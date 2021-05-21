@@ -46,8 +46,11 @@ namespace Api
             services.AddScoped<IChildRepository, ChildRepository>();
             services.AddScoped<IRiebedebieRepository, RiebedebieRepository>();
             services.AddScoped<IReservationRepository, ReservationRepository>();
+            services.AddScoped<IParentRepository, ParentRepository>();
 
-            services.AddIdentity<IdentityUser, IdentityRole>(cfg => cfg.User.RequireUniqueEmail = true).AddEntityFrameworkStores<RiebedebieContext>();
+
+            services.AddIdentity<IdentityUser, IdentityRole>(cfg => cfg.User.RequireUniqueEmail = true)
+                .AddEntityFrameworkStores<RiebedebieContext>();
 
             services.AddAuthentication(x => {
                 x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -114,7 +117,7 @@ namespace Api
 
             app.UseCors("AllowAllOrigins");
 
-            riebedebieDataInitializer.InitializeData();  //.Wait();
+            riebedebieDataInitializer.InitializeData().Wait();
         }
     }
 }

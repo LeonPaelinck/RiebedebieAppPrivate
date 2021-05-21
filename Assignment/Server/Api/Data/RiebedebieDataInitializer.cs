@@ -1,4 +1,5 @@
-﻿using RiebedebieApi.Models;
+﻿using Microsoft.AspNetCore.Identity;
+using RiebedebieApi.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,17 +10,21 @@ namespace RiebedebieApi.Data
     public class RiebedebieDataInitializer
     {
         private readonly RiebedebieContext _dbContext;
+        private readonly UserManager<IdentityUser> _userManager;
 
-        public RiebedebieDataInitializer(RiebedebieContext dbContext)
+
+        public RiebedebieDataInitializer(RiebedebieContext dbContext, UserManager<IdentityUser> userManager)
         {
             _dbContext = dbContext;
+            _userManager = userManager;
         }
 
-        public void InitializeData()
+        public async Task InitializeData()
         {
             _dbContext.Database.EnsureDeleted();
             if (_dbContext.Database.EnsureCreated())
             {
+
                 Child child1 = new Child() { FirstName = "Chiara", LastName = "Van Campe", BirthDate = new DateTime(1999, 6, 14) };
                 Child child3 = new Child() { FirstName = "Victor", LastName = "Robbrecht", BirthDate = new DateTime(2010, 10, 4) };
                 Child child4 = new Child() { FirstName = "Wouter", LastName = "Denissen", BirthDate = new DateTime(2018, 8, 8) };
@@ -45,7 +50,19 @@ namespace RiebedebieApi.Data
                 _dbContext.Riebedebies.AddRange(riebedebies);
 
                 _dbContext.SaveChanges();
+
+                Parent parent1 = new Parent { Email = "parent@stekene.be", FirstName = "John", LastName = "Doe" };
+                _dbContext.Parents.Add(parent1);
+                await CreateUser(parent1.Email, "P@ssword1111");
+
+                _dbContext.SaveChanges();
             }
+        }
+
+        private async Task CreateUser(string email, string password)
+        {
+            var user = new IdentityUser { UserName = email, Email = email };
+            await _userManager.CreateAsync(user, password);
         }
     }
 }
