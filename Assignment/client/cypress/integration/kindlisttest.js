@@ -1,3 +1,9 @@
+describe('Children List tests', function () {
+  
+beforeEach(function () {
+  cy.login();
+});
+
 it('mock children get', function() {
     cy.server({ delay: 1000 });
     cy.route({
@@ -22,3 +28,6 @@ it('mock children get', function() {
     cy.visit('/');
     cy.get('[data-cy=kindCard]').should('have.length', 0);
   });
+
+
+});
