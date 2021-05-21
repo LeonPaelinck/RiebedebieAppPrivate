@@ -16,12 +16,14 @@ namespace RiebedebieApi.Controllers
         private readonly IRiebedebieRepository _riebedebieRepository;
         private readonly IReservationRepository _reservationRepository;
         private readonly IChildRepository _childRepository;
+        private readonly IParentRepository _parentRepository;
 
-        public ReservationsController(IRiebedebieRepository context, IReservationRepository reservationRepository, IChildRepository childrenRepos)
+        public ReservationsController(IRiebedebieRepository context, IReservationRepository reservationRepository, IChildRepository childrenRepos, IParentRepository parentRepos)
         {
             _riebedebieRepository = context;
             _reservationRepository = reservationRepository;
             _childRepository = childrenRepos;
+            _parentRepository = parentRepos;
         }
 
         // GET: api/Reservations/5
@@ -62,10 +64,18 @@ namespace RiebedebieApi.Controllers
         {
             try
             {
+                Parent parent = _parentRepository.GetBy(User.Identity.Name);
                 Child child = _childRepository.GetBy(childId);
+
+                if (!parent.Children.Contains(child))
+                    return BadRequest("You cannot add a reservation for another child");
+
                 Riebedebie rieb = _riebedebieRepository.getAll().FirstOrDefault(r => r.AgeCategory == child.AgeCategory);
+                
                 Reservation res = rieb.Register(child, DateTime.Parse(reservation.Date), Convert.ToBoolean(reservation.Earlier), Convert.ToBoolean(reservation.Later));
                 _riebedebieRepository.SaveChanges();
+                parent.AddReservation(res);
+                _parentRepository.SaveChanges();
                 return CreatedAtAction(nameof(GetReservation), new { id = res.Id }, res);
 
             } catch (ArgumentException e)
