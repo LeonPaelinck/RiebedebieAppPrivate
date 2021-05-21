@@ -25,7 +25,7 @@ namespace RiebedebieApi.Data.Repositories
 
         public Parent GetBy(string email)
         {
-            return _parents.SingleOrDefault(p => p.Email == email); //including of niet?
+            return _parents.Include(p => p.Children).SingleOrDefault(p => p.Email == email); //including meer of niet?
         }
 
         public void SaveChanges()

@@ -30,7 +30,7 @@ export class AddReservationComponent implements OnInit {
       this.kind = item['kind']);
 
     this.reservatie = this.fb.group({
-      date: ['2021-08-08', [Validators.required]],
+      date: ['2021-08-08', [Validators.required, ]],
       earlier: ['false', [Validators.required]],
       later: ['false', [Validators.required]],    }
     );
