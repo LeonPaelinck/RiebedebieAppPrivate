@@ -26,10 +26,8 @@ export class AddReservationComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.route.paramMap.subscribe(pa =>
-      this.kindDataService.getKind$(pa.get('kindid'))
-        .subscribe(item => this.kind = item)
-    );
+    this.route.data.subscribe(item => 
+      this.kind = item['kind']);
 
     this.reservatie = this.fb.group({
       date: ['2021-08-08', [Validators.required]],
