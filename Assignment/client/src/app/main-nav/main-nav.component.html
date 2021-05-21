@@ -19,8 +19,21 @@
         *ngIf="isHandset$ | async">
         <mat-icon aria-label="Side nav toggle icon">Navigatie</mat-icon>
       </button>
-      <span>{{titel}}</span>
-      
+      <span>Welkom op {{titel}}   </span>
+      <span class="fill-space"></span>
+      <span *ngIf="loggedInUser$ | async as user; else loginTemplate">
+        {{ user }}
+        <button (click)="logout()" mat-flat-button>
+          logout
+        </button>
+      </span>
+      <ng-template #loginTemplate>
+        <span>
+          <button (click)="login()" mat-flat-button>
+            login
+          </button>
+        </span>
+      </ng-template>
     </mat-toolbar>
     <ng-content></ng-content>
   </mat-sidenav-content>
