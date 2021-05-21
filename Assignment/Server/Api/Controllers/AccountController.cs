@@ -20,7 +20,7 @@ namespace RiebedebieApi.Controllers
     {
         private readonly UserManager<IdentityUser> _userManager;
         private readonly SignInManager<IdentityUser> _signInManager;
-        private readonly IParentRepository _customerRepository;
+        private readonly IParentRepository _parentRepository;
         private readonly IConfiguration _config;
 
         public AccountController(
@@ -31,7 +31,7 @@ namespace RiebedebieApi.Controllers
         {
             _signInManager = signInManager;
             _userManager = userManager;
-            _customerRepository = customerRepository;
+            _parentRepository = customerRepository;
             _config = config;
         }
 
@@ -66,17 +66,17 @@ namespace RiebedebieApi.Controllers
         public async Task<ActionResult<String>> Register(RegisterDTO model)
         {
             IdentityUser user = new IdentityUser { UserName = model.Email, Email = model.Email };
-            Parent customer = new Parent
-            {
-                Email = model.Email,
-                FirstName = model.FirstName,
-                LastName = model.LastName
-            };
+            Parent parent1 = new Parent();
+
+            parent1.Email = model.Email;
+            parent1.FirstName = model.FirstName;
+            parent1.LastName = model.LastName;
+            
             var result = await _userManager.CreateAsync(user, model.Password);
             if (result.Succeeded)
             {
-                _customerRepository.Add(customer);
-                _customerRepository.SaveChanges();
+                _parentRepository.Add(parent1);
+                _parentRepository.SaveChanges();
                 string token = GetToken(user);
                 return Created("", token);
             }
