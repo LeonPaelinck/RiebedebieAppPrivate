@@ -11,6 +11,7 @@ import { MainNavComponent } from './main-nav/main-nav.component';
 import { AppRoutingModule } from './app-routing.module';
 import { MaterialModule } from './material/material.module';
 import { UserModule } from './user/user.module';
+import { httpInterceptorProviders } from './http-interceptors/indext';
 
 
 
@@ -26,7 +27,7 @@ import { UserModule } from './user/user.module';
     AppRoutingModule
 
   ],
-  providers: [],
+  providers: [httpInterceptorProviders],
   declarations: [AppComponent, PageNotFoundComponent, MainNavComponent],
   bootstrap: [AppComponent]
 })

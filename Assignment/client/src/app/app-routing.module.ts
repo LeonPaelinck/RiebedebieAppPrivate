@@ -2,12 +2,14 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { AuthGuard } from './user/auth-guard.service';
 import { LoginComponent } from './user/login/login.component';
 import { RegisterComponent } from './user/register/register.component';
 
 const appRoutes: Routes = [
   {
     path: 'kind',
+    canActivate: [ AuthGuard ],
     loadChildren: () => import('./kind/kind.module').then(mod => mod.KindModule)
   },
   /*{ path: 'register', component: RegisterComponent},
