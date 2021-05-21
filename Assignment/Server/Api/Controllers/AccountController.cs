@@ -56,6 +56,33 @@ namespace RiebedebieApi.Controllers
             return BadRequest();
     }
 
+        /// <summary>
+        /// Register a user
+        /// </summary>
+        /// <param name="model">the user details</param>
+        /// <returns></returns>
+        [AllowAnonymous]
+        [HttpPost("register")]
+        public async Task<ActionResult<String>> Register(RegisterDTO model)
+        {
+            IdentityUser user = new IdentityUser { UserName = model.Email, Email = model.Email };
+            Parent customer = new Parent
+            {
+                Email = model.Email,
+                FirstName = model.FirstName,
+                LastName = model.LastName
+            };
+            var result = await _userManager.CreateAsync(user, model.Password);
+            if (result.Succeeded)
+            {
+                _customerRepository.Add(customer);
+                _customerRepository.SaveChanges();
+                string token = GetToken(user);
+                return Created("", token);
+            }
+            return BadRequest();
+        }
+
         private string GetToken(IdentityUser user)
         {
             var claims = new[] {
