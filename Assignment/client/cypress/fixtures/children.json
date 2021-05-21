@@ -1,0 +1,26 @@
+[
+    {
+     "id": 1,
+      "lastName": "Van Campe",
+      "firstName": "Chiara",
+     "birthDate": "1999-06-14"
+    },
+    {
+        "id": 2,
+      "lastName": "Goethals",
+      "firstName": "Zjef",
+      "birthDate": "2008-05-06"
+    },
+    {
+        "id": 3,
+        "lastName": "Robbrecht",
+      "firstName": "Victor",
+      "birthDate": "2010-10-04"
+    },
+    {
+        "id": 4,
+        "lastName": "De Kimpe",
+      "firstName": "Amélie",
+      "birthDate": "2019-06-14"
+    }
+  ]

@@ -8,11 +8,13 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { KindFilterPipe } from './kind-filter.pipe';
 import { AddReservationComponent } from './add-reservation/add-reservation.component';
 import { RouterModule } from '@angular/router';
+import { KindResolver } from './KindResolver';
 
 const routes = [
   { path: 'list', component: KindListComponent },
   { path: 'add', component: AddKindComponent },
-  { path: 'add-reservation/:kindid', component: AddReservationComponent } 
+  { path: 'add-reservation/:kindid', component: AddReservationComponent,
+  resolve: { kind: KindResolver} } 
 ];
 
 @NgModule({

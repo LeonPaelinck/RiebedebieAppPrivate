@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -42,6 +43,8 @@ namespace Api
             services.AddScoped<IChildRepository, ChildRepository>();
             services.AddScoped<IRiebedebieRepository, RiebedebieRepository>();
             services.AddScoped<IReservationRepository, ReservationRepository>();
+
+            services.AddIdentity<IdentityUser, IdentityRole>(cfg => cfg.User.RequireUniqueEmail = true).AddEntityFrameworkStores<RiebedebieContext>();
 
 
             services.AddSwaggerGen(c =>

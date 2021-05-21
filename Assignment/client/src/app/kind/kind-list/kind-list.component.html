@@ -5,17 +5,17 @@
         <mat-grid-tile
         class="kindlistitem"
         *ngFor="let kind of (kinderen$ | async | kindFilter: filterKindName)">
-            <app-kind [kind]="kind" (delete)="deleteKind($event)"></app-kind>
+            <app-kind [kind]="kind" (delete)="deleteKind($event)" data-cy="kindCard"></app-kind>
         </mat-grid-tile>
     </mat-grid-list>
 
 </div>
 
 <ng-template #loadingOrError>
-    <mat-card class="error" *ngIf="errorMessage; else loading">
+    <mat-card class="error" *ngIf="errorMessage; else loading" data-cy="errorMessage">
        Error loading the child list: {{ errorMessage }}. <br/>
         Please try again later.
-      <ng-template #loading>
+      <ng-template #loading data-cy="loading">
         <mat-spinner></mat-spinner>
       </ng-template>
     </mat-card>

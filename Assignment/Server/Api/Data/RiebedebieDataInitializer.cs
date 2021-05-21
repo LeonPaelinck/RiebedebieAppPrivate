@@ -40,6 +40,7 @@ namespace RiebedebieApi.Data
                 Reservation res3 = kinderwerking.Register(child3, new DateTime(2021, 07, 21), true, false);
                 Reservation res4 = kleuterwerking.Register(child4, new DateTime(2021, 07, 20), false, false);
 
+
                 _dbContext.Children.AddRange(kinderen);
                 _dbContext.Riebedebies.AddRange(riebedebies);
 
