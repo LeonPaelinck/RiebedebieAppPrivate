@@ -8,13 +8,26 @@ namespace RiebedebieApi.Models
 {
     public class Child
     {
+        private DateTime _birthDate;
+
         public int Id { get; set; }
         [Required]
         public string LastName { get; set; }
         [Required]
         public string FirstName { get; set; }
         [Required]
-        public DateTime BirthDate { get; set; }
+        public DateTime BirthDate
+        {
+            get { return _birthDate; }
+            set
+            {
+                if (value > DateTime.Now)
+                    throw new ArgumentException("Birthdate cannot be in the future");
+                if (DateTime.Now.Year - value.Year >= 16)
+                    throw new ArgumentException("This child is too old ");
+                _birthDate = value;
+            }
+        }
 
         //public ICollection<Reservation> Reservations { get; set; }
 
