@@ -1,6 +1,6 @@
 Inloggegevens:
-*Email: `parent@stekene.be`
-*Wachtwoord: `P@ssword1111`
+* Email: `parent@stekene.be`
+* Wachtwoord: `P@ssword1111`
 
 Commando om front-end te laten starten:
 * `npm start` 
