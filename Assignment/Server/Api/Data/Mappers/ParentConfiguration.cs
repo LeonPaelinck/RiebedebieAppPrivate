@@ -18,7 +18,7 @@ namespace RiebedebieApi.Data.Mappers
             builder.Property(c => c.FirstName).IsRequired().HasMaxLength(50);
             builder.Property(c => c.Email).IsRequired().HasMaxLength(100);
 
-            //builder.HasMany(p => p.Children).WithOne().HasForeignKey(c => c.Id);
+            builder.HasMany(p => p.Children).WithOne();
         }
     }
 }

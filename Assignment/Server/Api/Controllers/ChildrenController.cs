@@ -33,9 +33,9 @@ namespace RiebedebieApi.Controllers
         [HttpGet]
         public IEnumerable<Child> GetChildren()
         {
-            //Parent parent = _parentRepository.GetBy(User.Identity.Name);
-            //return parent.Children;
-            return _childRepository.GetAll();
+            Parent parent = _parentRepository.GetBy(User.Identity.Name);
+            return parent.Children;
+            //return _childRepository.GetAll();
         }
 
         // GET: api/Child/1
@@ -48,6 +48,9 @@ namespace RiebedebieApi.Controllers
         public ActionResult<Child> GetChild(int id)
         {
             Child child = _childRepository.GetBy(id);
+            Parent parent = _parentRepository.GetBy(User.Identity.Name);
+            if (!parent.Children.Contains(child))
+                return BadRequest(); //andere ouder heeft hier niks over te zeggen
             if (child is null)
                 return NotFound(); //404
             return Ok(child); //200
@@ -64,6 +67,8 @@ namespace RiebedebieApi.Controllers
         {
             Child childToCreate = new Child() { LastName = child.LastName, FirstName = child.FirstName, BirthDate = DateTime.Parse(child.BirthDate) };
             _childRepository.Add(childToCreate);
+            Parent parent = _parentRepository.GetBy(User.Identity.Name);
+            parent.AddChild(childToCreate);
             _childRepository.SaveChanges();
             return CreatedAtAction(nameof(GetChild),
                 new { id = childToCreate.Id }, childToCreate); //201
@@ -96,6 +101,9 @@ namespace RiebedebieApi.Controllers
         public ActionResult DeleteChild(int id)
         {
             Child child = _childRepository.GetBy(id);
+            Parent parent = _parentRepository.GetBy(User.Identity.Name);
+            if (!parent.Children.Contains(child))
+                return BadRequest(); //andere ouder heeft hier niks over te zeggen
             if (child is null)
                 return NotFound(); //404
             _childRepository.Delete(child);
