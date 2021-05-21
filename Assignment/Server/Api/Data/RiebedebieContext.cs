@@ -16,9 +16,12 @@ public class RiebedebieContext : DbContext
         builder.ApplyConfiguration(new ChildConfiguration());
         builder.ApplyConfiguration(new RiebedebieConfiguration());
         builder.ApplyConfiguration(new ReservationConfiguration());
+        builder.ApplyConfiguration(new ParentConfiguration());
     }
 
     public DbSet<Child> Children { get; set; }
     public DbSet<Riebedebie> Riebedebies { get; set; }
     public DbSet<Reservation> Reservations { get; set; }
+    public DbSet<Parent> Parents { get; set; }
+
 }
