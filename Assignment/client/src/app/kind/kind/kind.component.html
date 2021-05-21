@@ -8,7 +8,7 @@
     <mat-card-content>
       <p>Geboren in {{ kind.birthDate | date: 'dd/MM/yyyy'}}</p>
       <p>{{ kind.leeftijdsCategorie }}</p>
-      <button mat-stroked-button (click)="handleDelete()">
+      <button mat-stroked-button (click)="handleDelete()" data-cy="deleteButton">
         <mat-icon>delete_forever</mat-icon>
       </button>
             <!-- moet juiste id zijn -->
