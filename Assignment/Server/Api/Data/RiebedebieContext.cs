@@ -1,8 +1,9 @@
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using RiebedebieApi.Data.Mappers;
 using RiebedebieApi.Models;
 
-public class RiebedebieContext : DbContext
+public class RiebedebieContext : IdentityDbContext
 {
 
     public RiebedebieContext(DbContextOptions<RiebedebieContext> options)

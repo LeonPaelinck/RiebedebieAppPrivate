@@ -25,7 +25,7 @@ namespace RiebedebieApi.Models
         #region Constructors
         public Parent()
         {
-
+            Children = new List<Child>();
         }
         #endregion
 

@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using RecipeApi.DTOs;
 using RiebedebieApi.Models;
 using System;
@@ -10,24 +12,30 @@ namespace RiebedebieApi.Controllers
     [Route("api/[controller]")]
     [Produces("application/json")]
     [ApiConventionType(typeof(DefaultApiConventions))]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [ApiController]
     public class ChildrenController : ControllerBase
     {
         private readonly IChildRepository _childRepository;
-        public ChildrenController(IChildRepository context)
+        private readonly IParentRepository _parentRepository;
+
+        public ChildrenController(IChildRepository context, IParentRepository parentRepo)
         {
             _childRepository = context;
+            _parentRepository = parentRepo;
         }
 
         // GET: api/Children
         /// <summary>
-        /// Get every child ordered by lastname and age
+        /// Get every child 
         /// </summary>
         /// <returns>A list of all Children</returns>
         [HttpGet]
         public IEnumerable<Child> GetChildren()
         {
-            return _childRepository.GetAll().OrderBy(k => k.LastName).ThenBy(c => c.BirthDate);
+            //Parent parent = _parentRepository.GetBy(User.Identity.Name);
+            //return parent.Children;
+            return _childRepository.GetAll();
         }
 
         // GET: api/Child/1

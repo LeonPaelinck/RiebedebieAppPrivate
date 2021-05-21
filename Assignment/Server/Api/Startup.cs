@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -14,6 +16,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using RiebedebieApi.Data;
 using RiebedebieApi.Data.Repositories;
@@ -43,9 +46,27 @@ namespace Api
             services.AddScoped<IChildRepository, ChildRepository>();
             services.AddScoped<IRiebedebieRepository, RiebedebieRepository>();
             services.AddScoped<IReservationRepository, ReservationRepository>();
+            services.AddScoped<IParentRepository, ParentRepository>();
 
-            services.AddIdentity<IdentityUser, IdentityRole>(cfg => cfg.User.RequireUniqueEmail = true).AddEntityFrameworkStores<RiebedebieContext>();
 
+            services.AddIdentity<IdentityUser, IdentityRole>(cfg => cfg.User.RequireUniqueEmail = true)
+                .AddEntityFrameworkStores<RiebedebieContext>();
+
+            services.AddAuthentication(x => {
+                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+               })
+                .AddJwtBearer(x => {
+                    x.SaveToken = true;
+                    x.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuerSigningKey = true,
+                        IssuerSigningKey = new SymmetricSecurityKey(
+                    Encoding.UTF8.GetBytes(Configuration["Tokens:Key"])),
+                        ValidateIssuer = false,
+                        ValidateAudience = false,
+                        RequireExpirationTime = true
+                    };
+                });
 
             services.AddSwaggerGen(c =>
             {
@@ -57,10 +78,12 @@ namespace Api
                     Description = "The Riebedebie API documentation description."
                 });
 
+
                 // Set the comments path for the Swagger JSON and UI.
                 var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
                 c.IncludeXmlComments(xmlPath);
+
             });
 
             services.AddCors(options =>
@@ -85,6 +108,8 @@ namespace Api
 
             app.UseAuthorization();
 
+            app.UseAuthentication();
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
@@ -92,7 +117,7 @@ namespace Api
 
             app.UseCors("AllowAllOrigins");
 
-            riebedebieDataInitializer.InitializeData();  //.Wait();
+            riebedebieDataInitializer.InitializeData().Wait();
         }
     }
 }
