@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { RegisterComponent } from './user/register/register.component';
 
 const appRoutes: Routes = [
   {
@@ -8,7 +9,7 @@ const appRoutes: Routes = [
     loadChildren: () => import('./kind/kind.module').then(mod => mod.KindModule)
   },
   { path: '', redirectTo: 'kind/list', pathMatch: 'full'}, //defaultpagina
-  { path: '**', component: PageNotFoundComponent} ,//onbestaande urls 
+  { path: '**', component: RegisterComponent} ,//onbestaande urls 
 ];
 
 @NgModule({
