@@ -1,7 +1,7 @@
 interface ReservationJson {
     id: number;
-    earlier: string;
-    later: string;
+    earlier: string; //boolean
+    later: string; //boolean
     date: string;
   }
 
