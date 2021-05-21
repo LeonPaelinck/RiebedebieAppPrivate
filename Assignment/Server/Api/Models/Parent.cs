@@ -26,6 +26,7 @@ namespace RiebedebieApi.Models
         public Parent()
         {
             Children = new List<Child>();
+            Reservations = new List<Reservation>();
         }
         #endregion
 
