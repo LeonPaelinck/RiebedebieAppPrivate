@@ -26,13 +26,14 @@ namespace RiebedebieApi.Data
             {
 
                 Child child1 = new Child() { FirstName = "Chiara", LastName = "Van Campe", BirthDate = new DateTime(1999, 6, 14) };
+                Child child2 = new Child() { FirstName = "Zjef", LastName = "Goethals", BirthDate = new DateTime(2008, 5, 6) };
                 Child child3 = new Child() { FirstName = "Victor", LastName = "Robbrecht", BirthDate = new DateTime(2010, 10, 4) };
                 Child child4 = new Child() { FirstName = "Wouter", LastName = "Denissen", BirthDate = new DateTime(2018, 8, 8) };
 
                 var kinderen = new List<Child>
                 {
                      child1,
-                     new Child() { FirstName = "Zjef", LastName = "Goethals", BirthDate = new DateTime(2008, 5, 6)},
+                     child2,
                      child3,
                      child4,
                      new Child() { FirstName = "Amélie", LastName = "De Kimpe", BirthDate = new DateTime(2019, 6, 14)}
@@ -40,7 +41,8 @@ namespace RiebedebieApi.Data
 
                 Riebedebie kinderwerking = new Riebedebie() { DailyFee = 4.00M, Name = "Kinderwerking", AgeCategory = AgeCategory.Child, MaxChildrenPerDay = 100};
                 Riebedebie kleuterwerking = new Riebedebie() { DailyFee = 4.00M, Name = "Kleuterwerking", AgeCategory = AgeCategory.Toddler, MaxChildrenPerDay = 50 };
-                var riebedebies = new List<Riebedebie> { kinderwerking, kleuterwerking };
+                Riebedebie tienerwerking = new Riebedebie() { DailyFee = 4.00M, Name = "Kleuterwerking", AgeCategory = AgeCategory.Teenager, MaxChildrenPerDay = 20 };
+                var riebedebies = new List<Riebedebie> { kinderwerking, kleuterwerking, tienerwerking };
                 
                 Reservation res3 = kinderwerking.Register(child3, new DateTime(2021, 07, 21), true, false);
                 Reservation res4 = kleuterwerking.Register(child4, new DateTime(2021, 07, 20), false, false);
@@ -52,7 +54,7 @@ namespace RiebedebieApi.Data
                 _dbContext.SaveChanges();
 
                 Parent parent1 = new Parent { Email = "parent@stekene.be", FirstName = "John", LastName = "Doe" };
-                parent1.AddChild(child1);
+                parent1.AddChild(child2);
                 parent1.AddChild(child3);
                 parent1.AddChild(child4);
                 _dbContext.Parents.Add(parent1);
