@@ -19,23 +19,7 @@ export class Kind {
       private _lastName: string,
       private _firstName: string,
       private _birthDate: Date
-    ) {
-      this.leeftijd =  new Date().getFullYear() - this.birthDate.getFullYear();
-      if(this.leeftijd < 3)
-        this.leeftijdsCategorie = LeeftijdsCategorie.Peuter;
-      else if(this.leeftijd < 6)
-        this.leeftijdsCategorie = LeeftijdsCategorie.Kleuter;
-      else if(this.leeftijd < 12)
-        this.leeftijdsCategorie = LeeftijdsCategorie.Kind;
-      else if(this.leeftijd < 16)
-        this.leeftijdsCategorie = LeeftijdsCategorie.Tiener;
-      else 
-        this.leeftijdsCategorie = LeeftijdsCategorie.Animator;
-    }
-
-  private _leeftijd: number;
-
-  private _leeftijdsCategorie: LeeftijdsCategorie;
+    ) {}
 
   static fromJSON(json: ChildJson): Kind {
     const kind = new Kind(json.lastName, json.firstName, new Date(json.birthDate));
@@ -69,17 +53,22 @@ export class Kind {
     this._lastName = value;
   }
   public get leeftijdsCategorie(): LeeftijdsCategorie {
-    return this._leeftijdsCategorie;
+      if(this.leeftijd < 3)
+        return LeeftijdsCategorie.Peuter;
+      else if(this.leeftijd < 6)
+        return LeeftijdsCategorie.Kleuter;
+      else if(this.leeftijd < 12)
+        return LeeftijdsCategorie.Kind;
+      else if(this.leeftijd < 16)
+        return LeeftijdsCategorie.Tiener;
+      //else 
+        return LeeftijdsCategorie.Animator;
   }
-  public set leeftijdsCategorie(value: LeeftijdsCategorie) {
-    this._leeftijdsCategorie = value;
-  }
+ 
   public get leeftijd(): number {
-    return this._leeftijd;
+    return new Date().getFullYear() - this.birthDate.getFullYear(); //wordt berekend wanneer opgevraagd zodat het automatisch wordt aangepast naar elke dag
   }
-  public set leeftijd(value: number) {
-    this._leeftijd = value;
-  }
+
   public get id(): number {
     return this._id;
   }
