@@ -20,7 +20,7 @@ namespace RiebedebieApi.Tests.Models
             Assert.Equal(voornaam, c.FirstName);
             Assert.Equal(familienaam, c.LastName);
             Assert.Equal(geboortedatum, c.BirthDate);
-            Assert.Equal(AgeCategory.Teenager, c.AgeCategory); //zou zelf meoten berekenene 
+            Assert.Equal(AgeCategory.Child, c.AgeCategory); //zou zelf meoten berekenene 
         }
 
         [Fact]
