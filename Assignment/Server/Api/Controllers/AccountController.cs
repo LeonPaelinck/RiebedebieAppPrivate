@@ -83,6 +83,11 @@ namespace RiebedebieApi.Controllers
             return BadRequest();
         }
 
+        /// <summary>
+        /// Checks a username already exists
+        /// </summary>
+        /// <param name="email">the username</param>
+        /// <returns>True if unique</returns>
         [AllowAnonymous]
         [HttpGet("checkusername")]
         public async Task<ActionResult<Boolean>> CheckAvailableUserName(string email)
