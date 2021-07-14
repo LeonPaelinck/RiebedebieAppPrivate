@@ -1,33 +1,5 @@
-describe('Children List tests', function () {
-  
-beforeEach(function () {
-  cy.login();
-});
-
-it('mock children get', function() {
-    cy.server({ delay: 1000 });
-    cy.route({
-      method: 'GET',
-      url: '/api/children',
-      status: 200,
-      response: 'fixture:children.json' //4 kinderen
-    });
-
-    cy.visit('/');
-    cy.get('[data-cy=kindCard]').should('have.length', 4);
+describe('login page test', function () {
+  it(' app runs', function() {
+    cy.visit('http://localhost:4200');
   });
-
-  it('on error should show no list', function() {
-    cy.server();
-    cy.route({
-      method: 'GET',
-      url: '/api/children',
-      status: 500,
-      response: 'ERROR'
-    });
-    cy.visit('/');
-    cy.get('[data-cy=kindCard]').should('have.length', 0);
-  });
-
-
 });

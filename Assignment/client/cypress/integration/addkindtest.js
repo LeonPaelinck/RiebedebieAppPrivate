@@ -1,4 +1,4 @@
-describe('Children List tests', function () { 
+describe('Add children tests', function () { 
   
   beforeEach(function () {
     cy.login();
