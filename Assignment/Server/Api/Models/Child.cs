@@ -22,7 +22,9 @@ namespace RiebedebieApi.Models
             set
             {
                 if (value > DateTime.Now)
+                {
                     throw new ArgumentException("Birthdate cannot be in the future");
+                }
                 _birthDate = value;
             }
         }
@@ -64,6 +66,7 @@ namespace RiebedebieApi.Models
         {
             if (DateTime.Now.Year - birthDate.Year >= 16)
                 throw new ArgumentException("This child is too old ");
+
             LastName = lastName;
             FirstName = firstName;
             BirthDate = birthDate;

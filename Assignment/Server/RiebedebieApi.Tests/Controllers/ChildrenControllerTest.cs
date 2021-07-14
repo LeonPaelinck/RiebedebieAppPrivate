@@ -67,6 +67,22 @@ namespace RiebedebieApi.Tests.Models
 
         }
 
+        
+        [Fact]
+        public void PostChildUnSuccessful()
+        {
+            //Arrange
+            ChildDTO childDTO = new ChildDTO
+            {
+                BirthDate = DateTime.Now.AddYears(20).ToString(), //illegal value (future)
+                FirstName = _dbContext.Kind.FirstName,
+                LastName = _dbContext.Kind.LastName
+            };
+            //Act - Assert
+            var result = Assert.IsType<ActionResult<Child>>(_childrenController.PostChild(childDTO));
+
+        }
+
         #endregion
 
         #region == Update Methodes ==
@@ -80,6 +96,18 @@ namespace RiebedebieApi.Tests.Models
             //Verify
             _mockChildRepo.Verify(m => m.Update(It.IsNotNull<Child>()), Times.Once);
             _mockChildRepo.Verify(m => m.SaveChanges(), Times.Once);
+
+        }
+
+        [Fact]
+        public void PutChildUnSuccessful()
+        {
+            //Arrange
+            Child child = _dbContext.Kleuter;
+            child.Id = 1;
+            int foutiefID = 2;
+            //Act/Assert
+            var result = Assert.IsType<BadRequestResult>(_childrenController.PutChild(foutiefID, child));
 
         }
         #endregion
@@ -104,6 +132,37 @@ namespace RiebedebieApi.Tests.Models
             _mockParentRepo.Verify(m => m.GetBy(It.IsNotNull<string>()), Times.Once);
             _mockChildRepo.Verify(m => m.SaveChanges(), Times.Once);
 
+        }
+
+        [Fact]
+        public void DeletChildParentDoesNotContainUnsusscesful()
+        {
+            Child kind = _dbContext.Kind;
+            //Mock
+            _mockChildRepo.Setup(m => m.GetBy(It.IsNotNull<int>())).Returns(kind);
+            _mockParentRepo.Setup(m => m.GetBy(It.IsNotNull<string>())).Returns(_parent1);
+            //Arrange
+            int id = kind.Id;
+            //Act Assert
+            var result = Assert.IsType<BadRequestResult>(_childrenController.DeleteChild(id));
+           //Verify
+            _mockChildRepo.Verify(m => m.GetBy(It.IsNotNull<int>()), Times.Once);
+            _mockParentRepo.Verify(m => m.GetBy(It.IsNotNull<string>()), Times.Once);
+        }
+
+        [Fact]
+        public void DeletNonExistingChildUnsusscesful()
+        {
+            Child kind = _dbContext.Kind;
+            //Mock
+            _mockParentRepo.Setup(m => m.GetBy(It.IsNotNull<string>())).Returns(_parent1);
+            //Arrange
+            int id = kind.Id;
+            //Act-Assert
+            var result = Assert.IsType<NotFoundResult>(_childrenController.DeleteChild(id));
+            //Verify
+            _mockChildRepo.Verify(m => m.GetBy(It.IsNotNull<int>()), Times.Once);
+            _mockParentRepo.Verify(m => m.GetBy(It.IsNotNull<string>()), Times.Once);
         }
         #endregion
 
