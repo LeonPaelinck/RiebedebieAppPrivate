@@ -7,8 +7,8 @@ namespace RiebedebieApi.Models
 {
     public interface IRiebedebieRepository
     {
-        Riebedebie getBy(int id);
-        IEnumerable<Riebedebie> getAll();
+        Riebedebie GetBy(int id);
+        IEnumerable<Riebedebie> GetAll();
         Reservation GetReservationBy(int riebedebieId, int id);
         void SaveChanges();
     }

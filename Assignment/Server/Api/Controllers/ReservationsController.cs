@@ -64,16 +64,23 @@ namespace RiebedebieApi.Controllers
         {
             try
             {
+                DateTime date = DateTime.Parse(reservation.Date);
                 Parent parent = _parentRepository.GetBy(User.Identity.Name);
                 Child child = _childRepository.GetBy(childId);
 
                 if (!parent.Children.Contains(child))
                     return BadRequest("You cannot add a reservation for another child");
 
-                Riebedebie rieb = _riebedebieRepository.getAll().FirstOrDefault(r => r.AgeCategory == child.AgeCategory);
+                Riebedebie rieb = _riebedebieRepository.GetAll().FirstOrDefault(r => r.AgeCategory.Equals(child.AgeCategory));
                 
-                Reservation res = rieb.Register(child, DateTime.Parse(reservation.Date), Convert.ToBoolean(reservation.Earlier), Convert.ToBoolean(reservation.Later));
+                if(rieb.HowManyReservationsLeft(date, child) < 1)
+                {
+                    return BadRequest("This day is full");
+                }
+
+                Reservation res = rieb.Register(child, date, Convert.ToBoolean(reservation.Earlier), Convert.ToBoolean(reservation.Later));
                 _riebedebieRepository.SaveChanges();
+                _reservationRepository.Add(res);
                 parent.AddReservation(res);
                 _parentRepository.SaveChanges();
                 return CreatedAtAction(nameof(GetReservation), new { id = res.Id }, res);

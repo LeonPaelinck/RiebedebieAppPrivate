@@ -37,7 +37,7 @@ namespace RiebedebieApi.Models
 
         }
 
-        public int howManyReservationsLeft(DateTime date, Child child)
+        public int HowManyReservationsLeft(DateTime date, Child child)
         {
             return MaxChildrenPerDay - GetReservationsByDay(date).Count();
         }

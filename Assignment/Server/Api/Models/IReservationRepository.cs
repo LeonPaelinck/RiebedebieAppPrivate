@@ -9,5 +9,9 @@ namespace RiebedebieApi.Models
     {
         IEnumerable<Reservation> GetAll(int childId);
         Reservation GetBy(int id);
+
+        void Add(Reservation reservation);
+
+        void SaveChanges();
     }
 }
