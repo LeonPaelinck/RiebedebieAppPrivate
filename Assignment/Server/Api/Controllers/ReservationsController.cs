@@ -52,6 +52,17 @@ namespace RiebedebieApi.Controllers
             return _reservationRepository.GetAll(childId).ToList();
         }
 
+        // GET: api/Reservations
+        /// <summary>
+        /// Get every reservation from current parent
+        /// </summary>
+        /// <returns>A list of all reservations from the current user (parent)</returns>
+        [HttpGet("/reservations")]
+        public IEnumerable<Reservation> GetReservations()
+        {
+            return _parentRepository.GetBy(User.Identity.Name).Reservations;
+        }
+
         // POST: api/Reservation
         /// <summary>
         /// Creates and persists a new reservation
