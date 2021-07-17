@@ -21,3 +21,9 @@
           </mat-card-actions>
     </form>
     </mat-card>
+    <mat-card class="error" *ngIf="errorMessage" data-cy="appError">
+        Aanmaken reservatie mislukt: {{ errorMessage }}
+  </mat-card>
+  <mat-card class="confirmation" *ngIf="confirmationMessage" data-cy="appConfirmation">
+        {{ confirmationMessage }}
+  </mat-card>

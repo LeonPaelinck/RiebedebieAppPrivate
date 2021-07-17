@@ -53,11 +53,11 @@ export class KindDataService {
       });
   }
 
-    public addReservatie(kind: Kind, res: Reservatie) {
-      console.log(res);
+    public addReservatie(res: Reservatie) {
+      console.log(res.toJSON());
 
       return this.http
-      .post(`${environment.apiUrl}/reservations/${kind.id}`, res.toJSON());
+      .post(`${environment.apiUrl}/reservations/`, res.toJSON());
   }
 
   deleteKind(kind: Kind) {

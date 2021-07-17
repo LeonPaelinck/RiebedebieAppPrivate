@@ -8,6 +8,6 @@ namespace RecipeApi.DTOs
         public string Date { get; set; }
         public string Earlier { get; set; }
         public string Later { get; set; }
-
+        public int ChildId { get; set; }
     }
 }

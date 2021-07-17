@@ -1,8 +1,9 @@
 interface ReservationJson {
     id: number;
+    date: string;
     earlier: string; //boolean
     later: string; //boolean
-    date: string;
+    childId: number;
   }
 
 export class Reservatie {
@@ -10,21 +11,23 @@ export class Reservatie {
     constructor(
         private _date: Date,
         private _later: boolean,
-        private _earlier: boolean
+        private _earlier: boolean,
+        private _childId: number
       ) {
       }
   
     static fromJSON(json: ReservationJson): Reservatie {
-      const reservatie = new Reservatie(new Date(json.date), JSON.parse(json.earlier), JSON.parse(json.later));
+      const reservatie = new Reservatie(new Date(json.date), JSON.parse(json.earlier), JSON.parse(json.later), json.childId);
       reservatie.id = json.id;
       return reservatie;
     }
   
      toJSON (): ReservationJson {
      return <ReservationJson> {
+      date: this.date.toDateString(),
        earlier: String(this.earlier),
        later: String(this.later),
-       date: this.date.toDateString()
+       childId: this.childId
      };
    }
     public get date(): Date {
@@ -48,7 +51,13 @@ export class Reservatie {
     public get id(): number {
         return this._id;
       }
-      public set id(value: number) {
-        this._id = value;
-      }
+    public set id(value: number) {
+      this._id = value;
+    }
+    public get childId(): number {
+      return this._childId;
+    }
+    public set childId(value: number) {
+      this._id = value;
+    }
   }

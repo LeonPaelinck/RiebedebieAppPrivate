@@ -9,7 +9,11 @@ namespace RiebedebieApi.Data.Mappers
     {
         public void Configure(EntityTypeBuilder<Riebedebie> builder)
         {
-            builder.HasMany(r => r.Reservations).WithOne().IsRequired().OnDelete(DeleteBehavior.Restrict);
+            builder.HasMany(r => r.Reservations).WithOne()
+                .IsRequired()
+                .OnDelete(DeleteBehavior.Restrict)
+                ;
+
         }
     }
 }
