@@ -80,15 +80,13 @@ export class RegisterComponent implements OnInit {
       return `passwords are not the same`;
     }
   }
-
     onSubmit() {
     this.authService
       .register(
         this.user.value.firstname,
         this.user.value.lastname,
         this.user.value.email,
-        this.user.value.passwordGroup.password,
-        this.user.value.passwordConfirmation
+        this.user.value.passwordGroup.password
       )
       .subscribe(
         (val) => {

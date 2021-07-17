@@ -60,14 +60,14 @@ export class AuthenticationService {
     );
   }   
 
-  register(firstname: string, lastname: string, email: string, password: string, passwordConfirmation: string): Observable<boolean> {
+  register(firstname: string, lastname: string, email: string, password: string): Observable<boolean> {
     return this.http
       .post(
         `${environment.apiUrl}/account/register`,
         {
           firstname, lastname,
           email, password, 
-          passwordConfirmation
+          passwordConfirmation: password
         },
         { responseType: 'text' }
       )
