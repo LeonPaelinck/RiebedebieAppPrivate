@@ -52,35 +52,45 @@ namespace RiebedebieApi.Controllers
             return _reservationRepository.GetAll(childId).ToList();
         }
 
+        // GET: api/Reservations
+        /// <summary>
+        /// Get every reservation from current parent
+        /// </summary>
+        /// <returns>A list of all reservations from the current user (parent)</returns>
+        [HttpGet("/reservations")]
+        public IEnumerable<Reservation> GetReservations()
+        {
+            return _parentRepository.GetBy(User.Identity.Name).Reservations;
+        }
+
         // POST: api/Reservation
         /// <summary>
         /// Creates and persists a new reservation
         /// </summary>
-        /// <param name="childId">The id of the child that to be registered</param>
         /// <param name="reservation">The info needed for the added reservation</param>
         /// <returns>The added Child</returns>
         [HttpPost]
-        public ActionResult<Reservation> PostReservation(int childId, ReservationDTO reservation)
+        public ActionResult<Reservation> PostReservation(ReservationDTO reservation)
         {
             try
             {
+                DateTime date = DateTime.Parse(reservation.Date);
                 Parent parent = _parentRepository.GetBy(User.Identity.Name);
-                Child child = _childRepository.GetBy(childId);
+                Child child = _childRepository.GetBy(reservation.ChildId);
 
                 if (!parent.Children.Contains(child))
                     return BadRequest("You cannot add a reservation for another child");
 
-                Riebedebie rieb = _riebedebieRepository.getAll().FirstOrDefault(r => r.AgeCategory == child.AgeCategory);
-                
-                Reservation res = rieb.Register(child, DateTime.Parse(reservation.Date), Convert.ToBoolean(reservation.Earlier), Convert.ToBoolean(reservation.Later));
+                Riebedebie rieb = _riebedebieRepository.GetBy(1);//.GetAll().FirstOrDefault(r => r.AgeCategory.Equals(child.AgeCategory));
+               
+                Reservation res = rieb.Register(parent, child, date, Convert.ToBoolean(reservation.Earlier), Convert.ToBoolean(reservation.Later));
                 _riebedebieRepository.SaveChanges();
-                parent.AddReservation(res);
-                _parentRepository.SaveChanges();
+
                 return CreatedAtAction(nameof(GetReservation), new { id = res.Id }, res);
 
             } catch (ArgumentException e)
             {
-                return BadRequest(e);
+                return BadRequest(e.Message);
             }
         }
            

@@ -18,6 +18,11 @@ namespace RiebedebieApi.Data.Repositories
             _reservations = context.Reservations;
         }
 
+        public void Add(Reservation res)
+        {
+            _reservations.Add(res);
+        }
+
         public IEnumerable<Reservation> GetAll(int childId)
         {
             return _reservations.Where(res => res.Child.Id == childId).ToList();
@@ -26,6 +31,11 @@ namespace RiebedebieApi.Data.Repositories
         public Reservation GetBy(int id)
         {
             return _reservations.Where(res => res.Id == id).FirstOrDefault();
+        }
+
+        public void SaveChanges()
+        {
+            _context.SaveChanges();
         }
     }
 }

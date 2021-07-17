@@ -22,7 +22,10 @@ namespace RiebedebieApi.Models
             set
             {
                 if (value > DateTime.Now)
+
+                {
                     throw new ArgumentException("Birthdate cannot be in the future");
+                }
                 _birthDate = value;
             }
         }
@@ -36,13 +39,15 @@ namespace RiebedebieApi.Models
             get 
             {
                 if (Age < 3)
-                   return AgeCategory.TooYoung;
+                    return AgeCategory.TooYoung;
                 else if (Age < 6)
-                   return AgeCategory.Toddler;
+                    return AgeCategory.Toddler;
                 else if (Age < 12)
-                   return AgeCategory.Child;
+                    return AgeCategory.Child;
+                else if (Age < 16)
+                    return AgeCategory.Teenager;
                 else
-                   return AgeCategory.Adult;
+                    return AgeCategory.Adult;
             }
         }
 
@@ -62,6 +67,7 @@ namespace RiebedebieApi.Models
         {
             if (DateTime.Now.Year - birthDate.Year >= 16)
                 throw new ArgumentException("This child is too old ");
+
             LastName = lastName;
             FirstName = firstName;
             BirthDate = birthDate;

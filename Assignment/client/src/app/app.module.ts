@@ -18,8 +18,6 @@ import { httpInterceptorProviders } from './http-interceptors/indext';
 @NgModule({
   imports: [
     BrowserModule,
-    KindModule,  
-    
     BrowserAnimationsModule,
     HttpClientModule,
     MaterialModule,

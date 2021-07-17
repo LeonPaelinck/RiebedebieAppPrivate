@@ -117,6 +117,7 @@
             mat-raised-button
             type="submit"
             color="primary"
+            [disabled]='!user.valid'
             data-cy="register-button"
           >
             Registreer

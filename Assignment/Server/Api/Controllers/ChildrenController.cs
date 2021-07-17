@@ -65,13 +65,19 @@ namespace RiebedebieApi.Controllers
         [HttpPost]
         public ActionResult<Child> PostChild(ChildDTO child)
         {
-            Child childToCreate = new Child() { LastName = child.LastName, FirstName = child.FirstName, BirthDate = DateTime.Parse(child.BirthDate) };
-            _childRepository.Add(childToCreate);
-            Parent parent = _parentRepository.GetBy(User.Identity.Name);
-            parent.AddChild(childToCreate);
-            _childRepository.SaveChanges();
-            return CreatedAtAction(nameof(GetChild),
-                new { id = childToCreate.Id }, childToCreate); //201
+            try
+            {
+                Child childToCreate = new Child(child.LastName, child.FirstName, DateTime.Parse(child.BirthDate));
+                _childRepository.Add(childToCreate);
+                Parent parent = _parentRepository.GetBy(User.Identity.Name);
+                parent.AddChild(childToCreate);
+                _childRepository.SaveChanges();
+                return CreatedAtAction(nameof(GetChild), new { id = childToCreate.Id }, childToCreate); //201
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            }
         }
 
         // PUT: api/Child/1
@@ -102,11 +108,16 @@ namespace RiebedebieApi.Controllers
         {
             Child child = _childRepository.GetBy(id);
             Parent parent = _parentRepository.GetBy(User.Identity.Name);
+
             if (!parent.Children.Contains(child))
                 return BadRequest(); //andere ouder heeft hier niks over te zeggen
+
             if (child is null)
                 return NotFound(); //404
-            _childRepository.Delete(child);
+            if (!parent.Children.Contains(child))
+                return BadRequest(); //andere ouder heeft hier niks over te zeggen
+            //_childRepository.Delete(child);
+            parent.DeleteChild(child);
             _childRepository.SaveChanges();
             return NoContent(); //204 (geen nieuws is goed nieuws)
         }

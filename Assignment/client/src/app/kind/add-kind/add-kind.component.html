@@ -1,3 +1,4 @@
+<h1>Registreer kind </h1> 
 <mat-card>
 <form [formGroup]="kind" (ngSubmit)='onSubmit()'>
     <p><mat-form-field>
@@ -36,11 +37,17 @@
           kind.get('birthDate').touched"> 
                   {{ getErrorMessage(kind.get('birthDate')['errors']) }}
             </mat-error>
-    </mat-form-field></p>
-    <mat-card-actions>
-        <button type='submit'mat-raised-button  [disabled]='!kind.valid' data-cy="addkindButton">
-            registreer kind
-          </button>
+      </mat-form-field></p>
+      <mat-card-actions>
+            <button type='submit'mat-raised-button  [disabled]='!kind.valid' data-cy="addkindButton">
+                  registreer kind
+            </button>
       </mat-card-actions>
 </form>
+</mat-card>
+<mat-card class="error" *ngIf="errorMessage" data-cy="appError">
+      toevoegen kind mislukt: {{ errorMessage }}
+</mat-card>
+<mat-card class="confirmation" *ngIf="confirmationMessage" data-cy="appConfirmation">
+      {{ confirmationMessage }}
 </mat-card>

@@ -29,6 +29,9 @@ export class MainNavComponent {
 
   logout() {
     this._authenticationService.logout();
+    //locale data resetten?
+    //navigeren naar startpagina?
+    this._router.navigate(['/login']);
   }
   login() {
     console.log('login');

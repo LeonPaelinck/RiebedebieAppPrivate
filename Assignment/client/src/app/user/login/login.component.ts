@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -28,16 +29,25 @@ export class LoginComponent implements OnInit {
 
   onSubmit() {
     this.authService.login(this.user.value.username, 
-            this.user.value.password).subscribe(val => {
-      if (val) {
-        if (this.authService.redirectUrl) {
-          this.router.navigateByUrl(this.authService.redirectUrl);
-          this.authService.redirectUrl = undefined;
-        } else {
-          this.router.navigate(['/kind/list']);
+            this.user.value.password).subscribe(
+      val => {
+        if (val) {
+          if (this.authService.redirectUrl) {
+            this.router.navigateByUrl(this.authService.redirectUrl);
+            this.authService.redirectUrl = undefined;
+          } else {
+            this.router.navigate(['/']);
+          }
         }
-      }
-    }, err => this.errorMessage = err.json().message);
-  }
+        }, 
+        (err: HttpErrorResponse) => {
+        console.log(err);
+        if (err.error instanceof Error) {
+          this.errorMessage = `Error while trying to login user ${this.user.value.email}: ${err.error.message}`;
+        } else {
+          this.errorMessage = `Error ${err.status} while trying to login user ${this.user.value.email}: ${err.error}`;
+        }
+      });
+    }
 
 }

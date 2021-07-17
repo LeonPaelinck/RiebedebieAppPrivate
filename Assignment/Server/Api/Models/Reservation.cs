@@ -25,6 +25,11 @@ namespace RiebedebieApi.Models
             }
         }
 
+        public Reservation()
+        {
+
+        }
+
 
     }
 }

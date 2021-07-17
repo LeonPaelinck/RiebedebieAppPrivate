@@ -23,7 +23,7 @@ namespace RiebedebieApi.Models
             //ToddlerReservations = new List<Reservation>();
         }
 
-        public Reservation Register(Child child, DateTime day, bool earlier, bool overtime)
+        public Reservation Register(Parent parent, Child child, DateTime day, bool earlier, bool overtime)
         {
             IEnumerable<Reservation> reservations = GetReservationsByDay(day);
             if (reservations.Count() >= MaxChildrenPerDay)
@@ -31,15 +31,22 @@ namespace RiebedebieApi.Models
             if (reservations.Any(res => res.Child.Equals(child)))
                 throw new ArgumentException("This child has already been registered on that day");
             Reservation reservation = new Reservation() { Child = child, Date = day, Earlier = earlier, Later = overtime, PricePerDay = DailyFee, AfterHoursPrice = DailyFee/2 };
+            
             Reservations.Add(reservation);
-            //parent.AddReservation(reservation);
+            parent.AddReservation(reservation);
+           
             return reservation;
 
         }
 
-        public int howManyReservationsLeft(DateTime date, Child child)
+        public int HowManyReservationsLeft(DateTime date, Child child)
         {
             return MaxChildrenPerDay - GetReservationsByDay(date).Count();
+        }
+
+        public bool AlreadyRegistered(DateTime date, Child child)
+        {
+            return GetReservationsByDay(date).Where(r => r.Child.Equals(child)).Count() >= 1;
         }
 
         private IEnumerable<Reservation> GetReservationsByDay(DateTime day)

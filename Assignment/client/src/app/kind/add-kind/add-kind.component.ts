@@ -25,6 +25,9 @@ function validateBirthDate(control: FormGroup)
 
 export class AddKindComponent implements OnInit {
   public kind: FormGroup;
+  public errorMessage: string = '';
+  public confirmationMessage: string = '';
+
 
   @Output() public newKind = new EventEmitter<Kind>();
 
@@ -41,8 +44,10 @@ export class AddKindComponent implements OnInit {
   }
 
   onSubmit() {
-    const kind = new Kind(this.kind.value.lastName, this.kind.value.firstName, new Date( this.kind.value.birthDate));
-    this._kindDataService.addKind(kind);
+    const newkind = new Kind(this.kind.value.lastName, this.kind.value.firstName, new Date( this.kind.value.birthDate));
+    this._kindDataService.addKind(newkind);
+    this.kind.reset();
+    this.confirmationMessage = `toevoegen ${newkind.firstName} ${newkind.lastName} is geslaagd`;
   }
 
   getErrorMessage(errors: any): string {

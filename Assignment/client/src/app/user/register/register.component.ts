@@ -80,7 +80,6 @@ export class RegisterComponent implements OnInit {
       return `passwords are not the same`;
     }
   }
-
     onSubmit() {
     this.authService
       .register(
@@ -96,7 +95,7 @@ export class RegisterComponent implements OnInit {
               this.router.navigateByUrl(this.authService.redirectUrl);
               this.authService.redirectUrl = undefined;
             } else {
-              this.router.navigate(['/recipe/list']);
+              this.router.navigate(['/']);
             }
           } else {
             this.errorMessage = `Could not login`;

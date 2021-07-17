@@ -19,6 +19,8 @@ namespace RiebedebieApi.Data.Mappers
             builder.Property(c => c.Email).IsRequired().HasMaxLength(100);
 
             builder.HasMany(p => p.Children).WithOne();
+
+            builder.HasMany(t => t.Reservations).WithOne().IsRequired(true).OnDelete(DeleteBehavior.Restrict);
         }
     }
 }
