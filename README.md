@@ -9,10 +9,12 @@
 - DotNet 5.0 Installed
 - SQL Database installed on localhost 
 
-## Getting started -  Development
+## Development Opstarten
 
 ````
-git clone this repository
+git clone deze repo
+
+````
 
 ### Server
 
@@ -21,8 +23,6 @@ cd Server/RecipeApi
 dotnet watch run
 ```
 
-
-````
 
 ### Client
 
