@@ -36,10 +36,12 @@ namespace RiebedebieApi.Models
             Children.Add(child);
         }
 
+
         public void DeleteChild(Child child)
         {
             Children.Remove(child);
         }
+
         public void AddReservation(Reservation res)
         {
             Reservations.Add(res);
