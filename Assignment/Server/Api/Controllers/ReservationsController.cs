@@ -90,7 +90,7 @@ namespace RiebedebieApi.Controllers
 
             } catch (ArgumentException e)
             {
-                return BadRequest(e);
+                return BadRequest(e.Message);
             }
         }
            
