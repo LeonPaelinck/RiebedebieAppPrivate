@@ -87,7 +87,8 @@ export class RegisterComponent implements OnInit {
         this.user.value.firstname,
         this.user.value.lastname,
         this.user.value.email,
-        this.user.value.passwordGroup.password
+        this.user.value.passwordGroup.password,
+        this.user.value.passwordConfirmation
       )
       .subscribe(
         (val) => {
