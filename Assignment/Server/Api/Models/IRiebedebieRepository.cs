@@ -9,7 +9,8 @@ namespace RiebedebieApi.Models
     {
         Riebedebie GetBy(int id);
         IEnumerable<Riebedebie> GetAll();
-        Reservation GetReservationBy(int riebedebieId, int id);
+        Riebedebie GetByAgeCategory(AgeCategory ageCategory);
+
         void SaveChanges();
     }
 }

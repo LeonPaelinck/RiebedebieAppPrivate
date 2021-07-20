@@ -57,7 +57,7 @@ namespace RiebedebieApi.Tests.Models
             //Mock
             _mockParentRepo.Setup(m => m.GetBy(It.IsNotNull<string>())).Returns(_parent1);
             _mockChildRepo.Setup(m => m.GetBy(It.IsNotNull<int>())).Returns(kind);
-            _mockRiebedebieRepo.Setup(m => m.GetAll()).Returns(new List<Riebedebie> { _dbContext.Kinderwerking });
+            _mockRiebedebieRepo.Setup(m => m.GetByAgeCategory(It.IsNotNull<AgeCategory>())).Returns(_dbContext.Kinderwerking);
             //Arrange
             _parent1.AddChild(kind);
             DateTime tomorrow = DateTime.Today.AddDays(1);
@@ -65,10 +65,11 @@ namespace RiebedebieApi.Tests.Models
             {
                 Date = DateTime.Today.AddDays(1).ToString(),
                 Earlier = "false",
-                Later = "false"
+                Later = "false",
+                ChildId = kind.Id
             };
             //Act
-            var result = Assert.IsType<ActionResult<Reservation>>(_reservationController.PostReservation(kind.Id, res));
+            var result = Assert.IsType<ActionResult<Reservation>>(_reservationController.PostReservation(res));
             //Assert
             Reservation reservation = _parent1.Reservations.Last();
             Assert.Equal(tomorrow, reservation.Date);
@@ -78,12 +79,44 @@ namespace RiebedebieApi.Tests.Models
             //Verify
             _mockParentRepo.Verify(m => m.GetBy(It.IsNotNull<string>()), Times.Once);
             _mockChildRepo.Verify(m => m.GetBy(It.IsNotNull<int>()), Times.Once);
-            _mockParentRepo.Verify(m => m.SaveChanges(), Times.Once);
-            _mockRiebedebieRepo.Verify(m => m.GetAll(), Times.Once);
+            _mockRiebedebieRepo.Verify(m => m.GetByAgeCategory(It.IsNotNull<AgeCategory>()), Times.Once);
             _mockRiebedebieRepo.Verify(m => m.SaveChanges(), Times.Once);
 
 
         }
+
+        [Fact]
+        public void PostFouteReservationUnsuccessful()
+        {
+            Child kind = _dbContext.Kind;
+            //Mock
+            _mockParentRepo.Setup(m => m.GetBy(It.IsNotNull<string>())).Returns(_parent1);
+            _mockChildRepo.Setup(m => m.GetBy(It.IsNotNull<int>())).Returns(kind);
+            _mockRiebedebieRepo.Setup(m => m.GetByAgeCategory(It.IsNotNull<AgeCategory>())).Returns(_dbContext.Kinderwerking);
+            //Arrange
+            _parent1.AddChild(kind);
+            DateTime tomorrow = DateTime.Today.AddDays(1);
+            ReservationDTO res = new ReservationDTO()
+            {
+                Date = DateTime.Today.AddDays(1).ToString(),
+                Earlier = "false",
+                Later = "false",
+                ChildId = kind.Id
+            };
+            //kind is reeds gregistreerd: kann niet nog eens
+            _dbContext.Kinderwerking.Register(_parent1, kind, tomorrow, false, false);
+            //Act
+            _reservationController.PostReservation(res);
+            //Assert
+            Assert.Equal(1, _parent1.Reservations.Count()); //geen reservatie aangemaakt
+
+            //Verify
+            _mockParentRepo.Verify(m => m.GetBy(It.IsNotNull<string>()), Times.Once);
+            _mockChildRepo.Verify(m => m.GetBy(It.IsNotNull<int>()), Times.Once);
+            _mockRiebedebieRepo.Verify(m => m.GetByAgeCategory(It.IsNotNull<AgeCategory>()), Times.Once);
+            _mockRiebedebieRepo.Verify(m => m.SaveChanges(), Times.Never);
+        }
+
 
         private static ControllerContext MockContext()
         {
