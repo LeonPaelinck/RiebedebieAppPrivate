@@ -72,7 +72,7 @@ namespace RiebedebieApi.Controllers
         [HttpPost]
         public ActionResult<Reservation> PostReservation(ReservationDTO reservation)
         {
-            DateTime date = DateTime.Parse(reservation.Date);
+            DateTime date = DateTime.Parse(reservation.Date).Date;
             Parent parent = _parentRepository.GetBy(User.Identity.Name);
             Child child = _childRepository.GetBy(reservation.ChildId);
 
@@ -84,7 +84,8 @@ namespace RiebedebieApi.Controllers
             try
             {
                 Reservation res = werking.Register(parent, child, date, Convert.ToBoolean(reservation.Earlier), Convert.ToBoolean(reservation.Later));
-                
+                if (res == null) { return BadRequest(); }
+
                 _riebedebieRepository.SaveChanges();
                 return CreatedAtAction(nameof(GetReservation), new { id = res.Id }, res);
             }

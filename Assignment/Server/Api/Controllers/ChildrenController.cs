@@ -112,8 +112,8 @@ namespace RiebedebieApi.Controllers
                 return NotFound(); //404
             if (!parent.Children.Contains(child))
                 return BadRequest(); //andere ouder heeft hier niks over te zeggen
-            //_childRepository.Delete(child);
             parent.DeleteChild(child);
+            _childRepository.Delete(child);
             _childRepository.SaveChanges();
             return NoContent(); //204 (geen nieuws is goed nieuws)
         }
