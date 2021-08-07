@@ -11,8 +11,7 @@ namespace RiebedebieApi.Models
         public int Id { get; set; }
         public String Name { get; set; }
         public AgeCategory AgeCategory { get; set; }
-        public ICollection<Reservation> Reservations { get; private set; }
-        //public ICollection<Reservation> ToddlerReservations { get; private set; }
+        public ICollection<Reservation> Reservations { get; set; }
         public decimal DailyFee;
         public int MaxChildrenPerDay { get; set; }
         #endregion

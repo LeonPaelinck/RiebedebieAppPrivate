@@ -31,7 +31,7 @@ namespace RiebedebieApi.Data.Repositories
 
         public Riebedebie GetByAgeCategory(AgeCategory ageCategory)
         {
-            return _riebedebies.FirstOrDefault(r => r.AgeCategory.Equals(ageCategory));
+            return _riebedebies.Include(r => r.Reservations).FirstOrDefault(r => r.AgeCategory.Equals(ageCategory));
         }
 
         public void SaveChanges()

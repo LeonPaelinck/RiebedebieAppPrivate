@@ -11,9 +11,10 @@ import { MainNavComponent } from './main-nav/main-nav.component';
 import { AppRoutingModule } from './app-routing.module';
 import { MaterialModule } from './material/material.module';
 import { UserModule } from './user/user.module';
-import { httpInterceptorProviders } from './http-interceptors/indext';
-
-
+import { httpInterceptorProviders } from './http-interceptors/index';
+//ngrx
+import { StoreModule } from '@ngrx/store';
+import { counterReducer } from './counter.reducer';
 
 @NgModule({
   imports: [
@@ -22,8 +23,8 @@ import { httpInterceptorProviders } from './http-interceptors/indext';
     HttpClientModule,
     MaterialModule,
     UserModule,
-    AppRoutingModule
-
+    AppRoutingModule,
+    StoreModule.forRoot({ count: counterReducer })
   ],
   providers: [httpInterceptorProviders],
   declarations: [AppComponent, PageNotFoundComponent, MainNavComponent],
