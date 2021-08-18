@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { AuthenticationService } from '../user/authentication.service';
+import { KindDataService } from '../kind/kind-data.service';
 
 @Component({
   selector: 'app-main-nav',
@@ -29,7 +30,6 @@ export class MainNavComponent {
 
   logout() {
     this._authenticationService.logout();
-    //locale data resetten?
     //navigeren naar startpagina?
     this._router.navigate(['/login']);
   }

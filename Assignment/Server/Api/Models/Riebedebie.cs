@@ -25,6 +25,8 @@ namespace RiebedebieApi.Models
         public Reservation Register(Parent parent, Child child, DateTime day, bool earlier, bool overtime)
         {
             IEnumerable<Reservation> reservations = Reservations.Where(res => res.Date.Date.Equals(day));
+           /* if (day.Date < DateTime.Today)
+                throw new ArgumentException("You cannot add a reservation in the past.");*/
             if (reservations.Count() >= MaxChildrenPerDay)
                 throw new ArgumentException("The maximum number of people has been exceeded.");
             if (reservations.Any(res => res.Child.Equals(child)))
