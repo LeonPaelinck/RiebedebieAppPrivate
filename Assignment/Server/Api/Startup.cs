@@ -117,7 +117,7 @@ namespace Api
 
             app.UseCors("AllowAllOrigins");
 
-            riebedebieDataInitializer.InitializeData().Wait();
+            //riebedebieDataInitializer.InitializeData().Wait(); //niet in online versie!
         }
     }
 }
