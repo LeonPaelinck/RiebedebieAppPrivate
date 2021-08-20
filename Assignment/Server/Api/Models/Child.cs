@@ -22,6 +22,7 @@ namespace RiebedebieApi.Models
             set
             {
                 if (value > DateTime.Now)
+
                 {
                     throw new ArgumentException("Birthdate cannot be in the future");
                 }

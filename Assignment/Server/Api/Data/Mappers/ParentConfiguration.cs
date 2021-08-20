@@ -21,7 +21,6 @@ namespace RiebedebieApi.Data.Mappers
             builder.HasMany(p => p.Children).WithOne();
 
             builder.HasMany(t => t.Reservations).WithOne().IsRequired(true).OnDelete(DeleteBehavior.Restrict);
-
         }
     }
 }

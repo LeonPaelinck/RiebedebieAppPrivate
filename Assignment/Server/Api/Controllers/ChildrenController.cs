@@ -108,6 +108,10 @@ namespace RiebedebieApi.Controllers
         {
             Child child = _childRepository.GetBy(id);
             Parent parent = _parentRepository.GetBy(User.Identity.Name);
+
+            if (!parent.Children.Contains(child))
+                return BadRequest(); //andere ouder heeft hier niks over te zeggen
+
             if (child is null)
                 return NotFound(); //404
             if (!parent.Children.Contains(child))

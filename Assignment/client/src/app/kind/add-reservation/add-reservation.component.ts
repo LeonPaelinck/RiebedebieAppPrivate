@@ -36,7 +36,6 @@ export class AddReservationComponent implements OnInit {
     .subscribe((res: Reservatie) => {
       this.confirmationMessage = `${this.kind.firstName} is succesvol ingeschreven op ${res.date}`;;
     });
-    
   }
 
   ngOnInit(): void {

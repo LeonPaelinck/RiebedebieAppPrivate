@@ -24,12 +24,14 @@ namespace RiebedebieApi.Data
             _dbContext.Database.EnsureDeleted();
             if (_dbContext.Database.EnsureCreated())
             {
+
                 Parent parent1 = new Parent { Email = "parent@stekene.be", FirstName = "John", LastName = "Doe" };
                 Parent parent2 = new Parent { Email = "parent2@stekene.be", FirstName = "Jim", LastName = "Carter" };
                 _dbContext.Parents.Add(parent1);
                 await CreateUser(parent1.Email, "P@ssword1111");
                 _dbContext.Parents.Add(parent2);
                 await CreateUser(parent2.Email, "P@ssword1111");
+
 
                 Child child1 = new Child() { FirstName = "Chiara", LastName = "Van Campe", BirthDate = new DateTime(2009, 6, 14) };
                 Child child2 = new Child() { FirstName = "Zjef", LastName = "Goethals", BirthDate = new DateTime(2008, 5, 6) };
@@ -63,6 +65,15 @@ namespace RiebedebieApi.Data
                 Reservation res4 = kleuterwerking.Register(parent1, child4, new DateTime(2021, 07, 20), false, false);
 
 
+
+                _dbContext.SaveChanges();
+
+                Parent parent1 = new Parent { Email = "parent@stekene.be", FirstName = "John", LastName = "Doe" };
+                parent1.AddChild(child2);
+                parent1.AddChild(child3);
+                parent1.AddChild(child4);
+                _dbContext.Parents.Add(parent1);
+                await CreateUser(parent1.Email, "P@ssword1111");
 
                 _dbContext.SaveChanges();
             }
