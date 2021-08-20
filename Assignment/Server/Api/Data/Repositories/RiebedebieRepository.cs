@@ -29,9 +29,9 @@ namespace RiebedebieApi.Data.Repositories
             return _riebedebies.Where(r => r.Id == id).Include(r => r.Reservations).FirstOrDefault();
         }
 
-        public Reservation GetReservationBy(int riebedebieId, int id)
+        public Riebedebie GetByAgeCategory(AgeCategory ageCategory)
         {
-            return GetBy(riebedebieId).Reservations.Where(res => res.Id == id).FirstOrDefault();
+            return _riebedebies.Include(r => r.Reservations).FirstOrDefault(r => r.AgeCategory.Equals(ageCategory));
         }
 
         public void SaveChanges()

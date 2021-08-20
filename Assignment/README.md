@@ -1,13 +1,55 @@
-Inloggegevens:
-* Email: `parent@stekene.be`
-* Wachtwoord: `P@ssword1111`
+# RiebedebieApp
 
-Commando om front-end te laten starten:
-* `npm start` 
+## Vereisten
 
-Testen starten:
-* `npm start` 
-* `npx cypress open` (in een tweede terminal)
+- Node.js installed
+  - https://nodejs.org/en/
+- Angular CLI installed
+  - `npm install -g @angular/cli`
+- DotNet 5.0 Installed
+- SQL Database installed on localhost 
 
-Online draaiende versie:
-https://witty-forest-04cdeae03.azurestaticapps.net/
+## Development Opstarten
+
+````
+git clone deze repo
+
+````
+
+### Server
+
+```
+cd Server/RecipeApi
+dotnet watch run
+```
+
+
+### Client
+
+```
+cd Client
+npm install
+ng build
+npm start
+```
+
+---
+
+## Productie opstarten
+
+### Client
+
+```
+cd Client
+npm install
+ng build --prod
+```
+
+### Server
+
+```
+cd Server/RecipeApi
+dotnet run
+```
+
+## 

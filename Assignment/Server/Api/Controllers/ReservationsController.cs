@@ -72,26 +72,28 @@ namespace RiebedebieApi.Controllers
         [HttpPost]
         public ActionResult<Reservation> PostReservation(ReservationDTO reservation)
         {
+            DateTime date = DateTime.Parse(reservation.Date).Date;
+            Parent parent = _parentRepository.GetBy(User.Identity.Name);
+            Child child = _childRepository.GetBy(reservation.ChildId);
+
+            if (!parent.Children.Contains(child))
+                return BadRequest("You cannot add a reservation for another child");
+
+            Riebedebie werking = _riebedebieRepository.GetByAgeCategory(child.AgeCategory);
+
             try
             {
-                DateTime date = DateTime.Parse(reservation.Date);
-                Parent parent = _parentRepository.GetBy(User.Identity.Name);
-                Child child = _childRepository.GetBy(reservation.ChildId);
+                Reservation res = werking.Register(parent, child, date, Convert.ToBoolean(reservation.Earlier), Convert.ToBoolean(reservation.Later));
+                if (res == null) { return BadRequest(); }
 
-                if (!parent.Children.Contains(child))
-                    return BadRequest("You cannot add a reservation for another child");
-
-                Riebedebie rieb = _riebedebieRepository.GetBy(1);//.GetAll().FirstOrDefault(r => r.AgeCategory.Equals(child.AgeCategory));
-               
-                Reservation res = rieb.Register(parent, child, date, Convert.ToBoolean(reservation.Earlier), Convert.ToBoolean(reservation.Later));
                 _riebedebieRepository.SaveChanges();
-
                 return CreatedAtAction(nameof(GetReservation), new { id = res.Id }, res);
-
-            } catch (ArgumentException e)
+            }
+            catch (Exception e)
             {
                 return BadRequest(e.Message);
-            }
+            }            
+
         }
            
 

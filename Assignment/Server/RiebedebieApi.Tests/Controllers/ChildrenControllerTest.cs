@@ -71,15 +71,25 @@ namespace RiebedebieApi.Tests.Models
         [Fact]
         public void PostChildUnSuccessful()
         {
+            //Mock
+            _mockParentRepo.Setup(m => m.GetBy(It.IsNotNull<string>())).Returns(_parent1);
             //Arrange
+            int numberOfChildren = _parent1.Children.Count();
             ChildDTO childDTO = new ChildDTO
             {
                 BirthDate = DateTime.Now.AddYears(20).ToString(), //illegal value (future)
                 FirstName = _dbContext.Kind.FirstName,
                 LastName = _dbContext.Kind.LastName
             };
-            //Act - Assert
-            var result = Assert.IsType<ActionResult<Child>>(_childrenController.PostChild(childDTO));
+            //Act
+            _childrenController.PostChild(childDTO);
+            //Assert
+            Assert.Equal(numberOfChildren, _parent1.Children.Count());
+            //Verify
+            _mockChildRepo.Verify(m => m.Add(It.IsNotNull<Child>()), Times.Never);
+            _mockParentRepo.Verify(m => m.GetBy(It.IsNotNull<string>()), Times.Never);
+            _mockChildRepo.Verify(m => m.SaveChanges(), Times.Never);
+
 
         }
 

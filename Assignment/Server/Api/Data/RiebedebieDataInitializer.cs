@@ -26,10 +26,14 @@ namespace RiebedebieApi.Data
             {
 
                 Parent parent1 = new Parent { Email = "parent@stekene.be", FirstName = "John", LastName = "Doe" };
+                Parent parent2 = new Parent { Email = "parent2@stekene.be", FirstName = "Jim", LastName = "Carter" };
                 _dbContext.Parents.Add(parent1);
                 await CreateUser(parent1.Email, "P@ssword1111");
+                _dbContext.Parents.Add(parent2);
+                await CreateUser(parent2.Email, "P@ssword1111");
 
-                Child child1 = new Child() { FirstName = "Chiara", LastName = "Van Campe", BirthDate = new DateTime(1999, 6, 14) };
+
+                Child child1 = new Child() { FirstName = "Chiara", LastName = "Van Campe", BirthDate = new DateTime(2009, 6, 14) };
                 Child child2 = new Child() { FirstName = "Zjef", LastName = "Goethals", BirthDate = new DateTime(2008, 5, 6) };
                 Child child3 = new Child() { FirstName = "Victor", LastName = "Robbrecht", BirthDate = new DateTime(2010, 10, 4) };
                 Child child4 = new Child() { FirstName = "Wouter", LastName = "Denissen", BirthDate = new DateTime(2018, 8, 8) };
@@ -37,6 +41,7 @@ namespace RiebedebieApi.Data
                 parent1.AddChild(child2);
                 parent1.AddChild(child3);
                 parent1.AddChild(child4);
+                parent2.AddChild(child1);
 
                 var kinderen = new List<Child>
                 {
@@ -49,8 +54,8 @@ namespace RiebedebieApi.Data
                 _dbContext.Children.AddRange(kinderen);
 
                 Riebedebie kinderwerking = new Riebedebie() { DailyFee = 4.00M, Name = "Kinderwerking", AgeCategory = AgeCategory.Child, MaxChildrenPerDay = 100};
-                Riebedebie kleuterwerking = new Riebedebie() { DailyFee = 4.00M, Name = "Kleuterwerking", AgeCategory = AgeCategory.Toddler, MaxChildrenPerDay = 50 };
-                Riebedebie tienerwerking = new Riebedebie() { DailyFee = 4.00M, Name = "Kleuterwerking", AgeCategory = AgeCategory.Teenager, MaxChildrenPerDay = 20 };
+                Riebedebie kleuterwerking = new Riebedebie() { DailyFee = 6.00M, Name = "Kleuterwerking", AgeCategory = AgeCategory.Toddler, MaxChildrenPerDay = 50 };
+                Riebedebie tienerwerking = new Riebedebie() { DailyFee = 8.00M, Name = "Kleuterwerking", AgeCategory = AgeCategory.Teenager, MaxChildrenPerDay = 20 };
                 var riebedebies = new List<Riebedebie> { kinderwerking, kleuterwerking, tienerwerking };
 
                 _dbContext.Riebedebies.AddRange(riebedebies);

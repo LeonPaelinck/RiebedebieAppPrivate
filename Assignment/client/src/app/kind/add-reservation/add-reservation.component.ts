@@ -44,8 +44,8 @@ export class AddReservationComponent implements OnInit {
 
     this.reservatie = this.fb.group({
       date: ['2021-08-08', [Validators.required, ]],
-      earlier: ['false', [Validators.required]],
-      later: ['false', [Validators.required]],    }
+      earlier: [false, [Validators.required]],
+      later: [false, [Validators.required]],    }
     );
   }
 

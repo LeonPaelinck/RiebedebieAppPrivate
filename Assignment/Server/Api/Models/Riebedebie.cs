@@ -11,9 +11,8 @@ namespace RiebedebieApi.Models
         public int Id { get; set; }
         public String Name { get; set; }
         public AgeCategory AgeCategory { get; set; }
-        public ICollection<Reservation> Reservations { get; private set; }
-        //public ICollection<Reservation> ToddlerReservations { get; private set; }
-        public decimal DailyFee;
+        public ICollection<Reservation> Reservations { get; set; }
+        public decimal DailyFee { get; set; }
         public int MaxChildrenPerDay { get; set; }
         #endregion
 
@@ -25,7 +24,9 @@ namespace RiebedebieApi.Models
 
         public Reservation Register(Parent parent, Child child, DateTime day, bool earlier, bool overtime)
         {
-            IEnumerable<Reservation> reservations = GetReservationsByDay(day);
+            IEnumerable<Reservation> reservations = Reservations.Where(res => res.Date.Date.Equals(day));
+           /* if (day.Date < DateTime.Today)
+                throw new ArgumentException("You cannot add a reservation in the past.");*/
             if (reservations.Count() >= MaxChildrenPerDay)
                 throw new ArgumentException("The maximum number of people has been exceeded.");
             if (reservations.Any(res => res.Child.Equals(child)))
@@ -39,6 +40,7 @@ namespace RiebedebieApi.Models
 
         }
 
+        /*
         public int HowManyReservationsLeft(DateTime date, Child child)
         {
             return MaxChildrenPerDay - GetReservationsByDay(date).Count();
@@ -47,12 +49,13 @@ namespace RiebedebieApi.Models
         public bool AlreadyRegistered(DateTime date, Child child)
         {
             return GetReservationsByDay(date).Where(r => r.Child.Equals(child)).Count() >= 1;
-        }
+        }*/
 
+        /*
         private IEnumerable<Reservation> GetReservationsByDay(DateTime day)
         {
-            return Reservations.Where(res => res.Date.Equals(day));
-        }
+            return Reservations.Where(res => res.Date == day);
+        } */
 
        /* private IEnumerable<Reservation> GetToddlerReservationsByDay(DateTime day)
         {

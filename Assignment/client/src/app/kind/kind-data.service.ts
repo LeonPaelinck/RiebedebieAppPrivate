@@ -16,8 +16,8 @@ export class KindDataService {
   private _kinderen: Kind[];
 
   constructor(private http: HttpClient) {
-    this.kinderen$.subscribe((recipes: Kind[]) => {
-      this._kinderen = recipes; //alle kinderen lokaal opslaan
+    this.kinderen$.subscribe((kinderen: Kind[]) => {
+      this._kinderen = kinderen; //alle kinderen lokaal opslaan
       this._kinderen$.next(this._kinderen); //zodat component automatisch update
     });
    }
@@ -38,6 +38,14 @@ export class KindDataService {
     return this.http
       .get(`${environment.apiUrl}/children/${id}`)
       .pipe(catchError(this.handleError), map(Kind.fromJSON)); // returns just one kind, in json formaat
+  }
+
+  public fetchReservaties$(id : number): Observable<Reservatie[]> {
+    return this.http.get(`${environment.apiUrl}/Reservations/${id}/reservations`).pipe(
+      catchError(this.handleError),
+      tap(console.log),
+      map((list: any[]): Reservatie[] => list.map(Reservatie.fromJSON))
+    );
   }
 
   public addKind(kind: Kind) {
@@ -81,6 +89,10 @@ export class KindDataService {
     }
     //console.error(err);
     return throwError(errorMessage);
+  }
+
+  public refresh() {
+
   }
 
  

@@ -48,6 +48,7 @@ export class LoginComponent implements OnInit {
           this.errorMessage = `Error ${err.status} while trying to login user ${this.user.value.email}: ${err.error}`;
         }
       });
+      
     }
 
 }

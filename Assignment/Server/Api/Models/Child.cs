@@ -73,5 +73,22 @@ namespace RiebedebieApi.Models
             BirthDate = birthDate;
         }
 
+        public override bool Equals(object obj)
+        {
+            var otherChild = obj as Child;
+
+            if (otherChild == null)
+            {
+                return false;
+            }
+
+            return Id == otherChild.Id;
+        }
+
+        public override int GetHashCode()
+        {
+            return Id.GetHashCode();
+        }
+
     }
 }
