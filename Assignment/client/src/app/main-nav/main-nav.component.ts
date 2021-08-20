@@ -31,7 +31,8 @@ export class MainNavComponent {
   logout() {
     this._authenticationService.logout();
     //navigeren naar startpagina?
-    this._router.navigate(['/login']);
+    window.location.reload();
+    ///this._router.navigate(['/login']);
   }
   login() {
     console.log('login');
