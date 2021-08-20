@@ -31,7 +31,7 @@ namespace RiebedebieApi.Data
                 _dbContext.Parents.Add(parent2);
                 await CreateUser(parent2.Email, "P@ssword1111");
 
-                Child child1 = new Child() { FirstName = "Chiara", LastName = "Van Campe", BirthDate = new DateTime(1999, 6, 14) };
+                Child child1 = new Child() { FirstName = "Chiara", LastName = "Van Campe", BirthDate = new DateTime(2009, 6, 14) };
                 Child child2 = new Child() { FirstName = "Zjef", LastName = "Goethals", BirthDate = new DateTime(2008, 5, 6) };
                 Child child3 = new Child() { FirstName = "Victor", LastName = "Robbrecht", BirthDate = new DateTime(2010, 10, 4) };
                 Child child4 = new Child() { FirstName = "Wouter", LastName = "Denissen", BirthDate = new DateTime(2018, 8, 8) };

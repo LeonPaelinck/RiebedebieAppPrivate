@@ -12,6 +12,23 @@
               reservatie.get('date').touched"> 
                       {{ getErrorMessage(reservatie.get('date')['errors']) }}
                 </mat-error>
+
+            <label>Vooropvang</label>
+            <label>
+                <input type="radio" name="earlier" formControlName="earlier" [value]="true" />Ja
+            </label>
+            <label>
+                <input type="radio" name="earlier" formControlName="earlier" [value]="false" />Nee
+            </label>
+            <label>Naopvang</label>
+            <label>
+                <input type="radio" name="later" formControlName="later" [value]="true" />Ja
+            </label>
+            <label>
+                <input type="radio" name="later" formControlName="later" [value]="false" />Nee
+            </label>
+
+            
         </mat-form-field></p>
         
         <mat-card-actions>

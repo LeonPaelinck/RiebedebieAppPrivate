@@ -9,6 +9,7 @@ import { KindFilterPipe } from './kind-filter.pipe';
 import { AddReservationComponent } from './add-reservation/add-reservation.component';
 import { RouterModule } from '@angular/router';
 import { KindResolver } from './KindResolver';
+import { ReservationListComponent } from './reservation-list/reservation-list.component';
 
 const routes = [
   { path: 'list', component: KindListComponent },
@@ -27,7 +28,7 @@ const routes = [
   declarations: [
     KindListComponent, 
     KindComponent, 
-    AddKindComponent, KindFilterPipe, AddReservationComponent
+    AddKindComponent, KindFilterPipe, AddReservationComponent, ReservationListComponent
   ],
   exports: [
     KindListComponent, 
