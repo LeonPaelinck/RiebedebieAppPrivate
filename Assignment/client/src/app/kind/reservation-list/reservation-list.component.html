@@ -1,1 +1,15 @@
-<p>reservation-list works!</p>
+<h1>Reservaties van {{kind.firstName}} {{kind.lastName}}</h1>
+<div style="margin: 0 2rem;" *ngIf="(reservaties$ | async) as reservaties;">
+
+    <mat-list role="list">
+        <mat-list-item *ngFor="let res of (reservaties$ | async)">
+            <mat-card>
+                Datum: {{res.date.toLocaleString()}}
+                Vooropvang: {{res.earlier}}
+                Naopvang: {{res.later}}
+            </mat-card>
+        </mat-list-item>
+      </mat-list>
+
+</div>
+

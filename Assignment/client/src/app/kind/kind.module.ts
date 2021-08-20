@@ -15,6 +15,8 @@ const routes = [
   { path: 'list', component: KindListComponent },
   { path: 'add', component: AddKindComponent },
   { path: 'add-reservation/:kindid', component: AddReservationComponent,
+  resolve: { kind: KindResolver} },
+  { path: 'reservation-list/:kindid', component: ReservationListComponent,
   resolve: { kind: KindResolver} } 
 ];
 

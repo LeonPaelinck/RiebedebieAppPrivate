@@ -40,6 +40,14 @@ export class KindDataService {
       .pipe(catchError(this.handleError), map(Kind.fromJSON)); // returns just one kind, in json formaat
   }
 
+  public fetchReservaties$(id : number): Observable<Reservatie[]> {
+    return this.http.get(`${environment.apiUrl}/Reservations/${id}/reservations`).pipe(
+      catchError(this.handleError),
+      tap(console.log),
+      map((list: any[]): Reservatie[] => list.map(Reservatie.fromJSON))
+    );
+  }
+
   public addKind(kind: Kind) {
     //console.log(this._kinderen$);
     return this.http

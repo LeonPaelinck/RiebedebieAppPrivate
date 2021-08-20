@@ -12,7 +12,7 @@ namespace RiebedebieApi.Models
         public String Name { get; set; }
         public AgeCategory AgeCategory { get; set; }
         public ICollection<Reservation> Reservations { get; set; }
-        public decimal DailyFee;
+        public decimal DailyFee { get; set; }
         public int MaxChildrenPerDay { get; set; }
         #endregion
 
