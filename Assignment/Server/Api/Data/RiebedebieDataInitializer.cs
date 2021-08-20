@@ -52,8 +52,8 @@ namespace RiebedebieApi.Data
                 _dbContext.Children.AddRange(kinderen);
 
                 Riebedebie kinderwerking = new Riebedebie() { DailyFee = 4.00M, Name = "Kinderwerking", AgeCategory = AgeCategory.Child, MaxChildrenPerDay = 100};
-                Riebedebie kleuterwerking = new Riebedebie() { DailyFee = 4.00M, Name = "Kleuterwerking", AgeCategory = AgeCategory.Toddler, MaxChildrenPerDay = 50 };
-                Riebedebie tienerwerking = new Riebedebie() { DailyFee = 4.00M, Name = "Kleuterwerking", AgeCategory = AgeCategory.Teenager, MaxChildrenPerDay = 20 };
+                Riebedebie kleuterwerking = new Riebedebie() { DailyFee = 6.00M, Name = "Kleuterwerking", AgeCategory = AgeCategory.Toddler, MaxChildrenPerDay = 50 };
+                Riebedebie tienerwerking = new Riebedebie() { DailyFee = 8.00M, Name = "Kleuterwerking", AgeCategory = AgeCategory.Teenager, MaxChildrenPerDay = 20 };
                 var riebedebies = new List<Riebedebie> { kinderwerking, kleuterwerking, tienerwerking };
 
                 _dbContext.Riebedebies.AddRange(riebedebies);
